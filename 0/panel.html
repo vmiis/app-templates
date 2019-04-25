@@ -29,7 +29,7 @@
                     if(href!=undefined){
                         href=href.replace('?\/','');
                         href=href.replace(/\//g,'_');
-                        if($vm.module_list[href]!=undefined) $vm.load_module(href,'',{});
+                        if($vm.module_list[href]!=undefined) window.open($vm.module_list[href].url);
                         else alert("The '"+ href +"' is not defined in the module list");
                     }
                 })
