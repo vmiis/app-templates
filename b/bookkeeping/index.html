@@ -21,28 +21,43 @@
         $vm={};$vm.ver=[0.02,0.01]; //increase ver[0] if any module changed, increase ver[1] if vm.js changed
         //------------------------------------
         //app urls
-        $vm.public_url_$A='https://app-templates.vmiis.com/a/a-simple-application';
-        $vm.local_url_$A='http://127.0.0.1:8000/vmiis/app-templates/a/a-simple-application';
+        $vm.public_url_$A='https://app-templates.vmiis.com/b/bookkeeping';
+        $vm.local_url_$A='http://127.0.0.1:8000/vmiis/app-templates/b/bookkeeping';
+        $vm.public_url_$B='https://modules.vmiis.com/';
+        $vm.local_url_$B='http://127.0.0.1:8000/vmiis/modules/';
+        //------------------------------------
+        if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
+        $vm.replace_url=function(modules,$X,$R,$L){
+            for(m in modules){
+                var $S=$R; if($vm.localhost==true) $S=$L;
+                if(modules[m].url!=undefined) modules[m].url=modules[m].url.replace($X,$S); 
+                else modules[m]=modules[m].replace($X,$S); 
+            } 
+        }
         //------------------------------------
         //where are your start modules
         $vm.start_modules=[
             "$A/modules/0/frame.html",  //app frame work
         ]
+        $vm.replace_url($vm.start_modules,"$A",$vm.public_url_$A,$vm.local_url_$A);
         //------------------------------------
-        //modules used in this app
+        //modules used immediately
         $vm.module_list={
             //you can add modules here directly
-            "home":	    {url:"$A/modules/0/home.html",router:1},
+            "home":	    {url:"$B/b/bookkeeping/home.html",router:1},
             "app":	    {url:"$A/modules/0/app.html"},
             "header":	{url:"$A/modules/0/header.html"},
             "footer":	{url:"$A/modules/0/footer.html"},
         };
+        $vm.replace_url($vm.module_list,"$A",$vm.public_url_$A,$vm.local_url_$A);
+        $vm.replace_url($vm.module_list,"$B",$vm.public_url_$B,$vm.local_url_$B);
         //------------------------------------
-        //where are your all other modules
+        //all other modules, used on demand 
         $vm.app_modules=[
             //you can add a js file that will add mmodules to the $vm.module_list
             "$A/modules/module-list.js",
         ]
+        $vm.replace_url($vm.app_modules,"$A",$vm.public_url_$A,$vm.local_url_$A);
         //------------------------------------
         //called by framework
         $vm.start=function(){
@@ -63,23 +78,12 @@
         $vm.root_layout_content_slot='content'
         $vm.root_layout_footer='footer';
         $vm.root_layout_app='app';
-        if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
         //---------------------------------------------
-        //replace the url
-        $vm.replace_url=function(url){
-            var urlR=url.replace("$A",$vm.public_url_$A);
-            if($vm.localhost==true) urlR=urlR.replace($vm.public_url_$A,$vm.local_url_$A);
-            return urlR;
-        }
-        //------------------------------------
-        for(p in $vm.start_modules) $vm.start_modules[p]=$vm.replace_url($vm.start_modules[p]);
-        for(p in $vm.app_modules) $vm.app_modules[p]=$vm.replace_url($vm.app_modules[p]);
-        //------------------------------------
         $vm._I=0; $vm._N=$vm.start_modules.length;
         $vm._boot=function(){
             $vm._I++;
             if($vm._I==$vm._N){
-                for(p in $vm.module_list) $vm.module_list[p].url=$vm.replace_url($vm.module_list[p].url);
+                //for(p in $vm.module_list) $vm.module_list[p].url=$vm.replace_url($vm.module_list[p].url);
                 //console.log("build in module list  "+(new Date().getTime()-$vm.start_time)+'ms');
                 $vm._start();
             }

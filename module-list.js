@@ -1,13 +1,21 @@
 (function(){
     //-------------------------------------------------------------------------------------
-    //generic
+    var url_replace=function(modules,prefix,$A,$R,$L){
+        for(m in modules){
+            var $S=$R; if($vm.localhost==true) $S=$L;
+            modules[m].url=modules[m].url.replace($A,$S); 
+            $vm.module_list[prefix+m]=modules[m]; 
+            $vm.module_list[prefix+m].prefix=prefix; 
+        } 
+    }
+    //-------------------------------------------------------------------------------------
     var modules={
         "a-simple-application":  		{url:"$A/a/a-simple-application/index.html"},
         "aaxsys":  		                {url:"$A/a/aaxsys/index.html"},
+        "bookkeeping":  		        {url:"$A/b/bookkeeping/index.html"},
+        "bookkeeping-wappsystem":       {url:"$A/b/bookkeeping-wappsystem/index.html"},
+        "bookkeeping-automation":       {url:"$A/b/bookkeeping-vmautomation/index.html"},
     }
-    for(m in modules){$vm.module_list[m]=modules[m];}
-    //-------------------------------------------------------------------------------------
-    //replace $A...
-    for(m in $vm.module_list) $vm.module_list[m].url=$vm.replace_url($vm.module_list[m].url);
+    url_replace(modules,"","$A","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
 })();
