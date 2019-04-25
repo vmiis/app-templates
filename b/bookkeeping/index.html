@@ -31,7 +31,7 @@
             for(m in modules){
                 var $S=$R; if($vm.localhost==true) $S=$L;
                 if(modules[m].url!=undefined) modules[m].url=modules[m].url.replace($X,$S); 
-                else modules[m]=modules[m].replace($X,$S); 
+                else modules[m]=modules[m].replace($X,$S);
             } 
         }
         //------------------------------------
@@ -44,7 +44,7 @@
         //modules used immediately
         $vm.module_list={
             //you can add modules here directly
-            "home":	    {url:"$B/b/bookkeeping/home.html",router:1},
+            "home":	    {url:"$B/b/bookkeeping/home.html",router:1, prefix:"bookkeeping-"},
             "app":	    {url:"$A/modules/0/app.html"},
             "header":	{url:"$A/modules/0/header.html"},
             "footer":	{url:"$A/modules/0/footer.html"},
@@ -55,9 +55,10 @@
         //all other modules, used on demand 
         $vm.app_modules=[
             //you can add a js file that will add mmodules to the $vm.module_list
-            "$A/modules/module-list.js",
+            "$B/module-list.js",
         ]
-        $vm.replace_url($vm.app_modules,"$A",$vm.public_url_$A,$vm.local_url_$A);
+        //$vm.replace_url($vm.app_modules,"$A",$vm.public_url_$A,$vm.local_url_$A);
+        $vm.replace_url($vm.app_modules,"$B",$vm.public_url_$B,$vm.local_url_$B);
         //------------------------------------
         //called by framework
         $vm.start=function(){

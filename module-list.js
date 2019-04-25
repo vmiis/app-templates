@@ -14,7 +14,7 @@
         "aaxsys":  		                {url:"$A/a/aaxsys/index.html"},
         "bookkeeping":  		        {url:"$A/b/bookkeeping/index.html"},
         "bookkeeping-wappsystem":       {url:"$A/b/bookkeeping-wappsystem/index.html"},
-        "bookkeeping-automation":       {url:"$A/b/bookkeeping-vmautomation/index.html"},
+        "bookkeeping-vmautomation":     {url:"$A/b/bookkeeping-vmautomation/index.html"},
     }
     url_replace(modules,"","$A","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------

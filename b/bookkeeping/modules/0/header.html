@@ -77,9 +77,11 @@
         })
         //------------------------------------
         $vm.menu_click=function(href){
+            var prefix="bookkeeping-"
             href=href.replace('?\/','');
             href=href.replace(/\//g,'_');
-            $vm.load_module(href,$vm.root_layout_content_slot,{});
+            if(href=='home') prefix="";
+            $vm.load_module(prefix+href,$vm.root_layout_content_slot,{});
         }
         //------------------------------------
         $vm.header_ready=1;
