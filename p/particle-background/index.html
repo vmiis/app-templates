@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- The title and meta data are changed by the active module-->
         <title></title>
         <meta name="description" content="">
-        <!-- The meta data are changed by the active module-->
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="icon" href="data:,">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.css" />
@@ -20,7 +20,10 @@
     <script boot-up>
         //------------------------------------
         $vm={};$vm.ver=[0.02,0.01]; //increase ver[0] if any module changed, increase ver[1] if vm.js changed
+        //------------------------------------
+        //setup modules location
         $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
+        if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-template.vmiis.com/p/particle-background";
         if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
         $vm.m_path='https://modules.vmiis.com'; if($vm.localhost==true) $vm.m_path='http://127.0.0.1:8000/vmiis/modules'; 
         //------------------------------------
@@ -33,10 +36,10 @@
         //modules used immediately
         $vm.module_list={
             //you can add modules here directly
-            "home":	        {url:"$H/modules/0/home.html",router:1},
-            "app":	        {url:"$H/modules/0/app.html"},
-            "header":	    {url:"$H/modules/0/header.html"},
-            "footer":	    {url:"$H/modules/0/footer.html"},
+            "home":	        {url:"$H/0/home.html",router:1},
+            "app":	        {url:"$H/0/app.html"},
+            "header":	    {url:"$H/0/header.html"},
+            "footer":	    {url:"$H/0/footer.html"},
             "background": 	{url:"$M/p/particle.html"},
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
