@@ -3,6 +3,7 @@
     //generic
     var modules={
         "a-simple-application":  		{url:"$A/a/a-simple-application/index.html"},
+        "aaxsys":  		                {url:"$A/a/aaxsys/index.html"},
     }
     for(m in modules){$vm.module_list[m]=modules[m];}
     //-------------------------------------------------------------------------------------
