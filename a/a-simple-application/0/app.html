@@ -35,13 +35,14 @@
                 }
             }
             //------------------------------------
-            $vm.show('home');
+            //$vm.show('home');
             window.onresize=function(){set_layout();}
             //------------------------------------
             $vm.init(function(){
                 $vm.init_status=1;
                 $vm.show_user();
             })
+            if($vm.first_module!=undefined) $vm.show($vm.first_module);
             //------------------------------------
         }
         //-------------------------------------
