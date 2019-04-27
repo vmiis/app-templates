@@ -1,6 +1,6 @@
 <div id=D__ID>
     <div style='padding:10px 0 0 20px;'>
-        <input id=filter__ID placeholder=Filter> <button id=apply__ID class="btn btn-secondary btn-sm">Apply</button>
+        <input id=filter__ID placeholder=Filter> <button id=apply__ID class="btn btn-secondary btn-sm">Refresh</button>
     </div>
     <div style='max-width:90%;margin-left:auto;margin-right:auto'>
         <div id=panel__ID class='panel__ID'>
@@ -13,11 +13,12 @@
                 var folder=m.input.folder;
                 var txt="";
                 for(a in $vm.module_list){
-                    if( (folder=='ALL' || a[0].toUpperCase()==folder) && a!='home' && a[0]!='_'){
-                        var name=$vm.module_list[a].name;
-                        var prefix_len=$vm.module_list[a].prefix.length;
-                        if(name==undefined) name=a.substring(prefix_len).replace(/_/g,' ').replace(/-/g,' ');
-                        name=name.charAt(0).toUpperCase() + name.slice(1);
+                    var name=$vm.module_list[a].name;
+                    var prefix_len=0;
+                    if($vm.module_list[a].prefix!=undefined) prefix_len=$vm.module_list[a].prefix.length;
+                    if(name==undefined) name=a.substring(prefix_len).replace(/_/g,' ').replace(/-/g,' ');
+                    name=name.charAt(0).toUpperCase() + name.slice(1);
+                    if( (folder=='ALL' || name[0].toUpperCase()==folder) && $vm.module_list[a].sys!=1){
                         txt+="<a href=?/"+a+">"+name+"</a><br>";
                     }
                 }
