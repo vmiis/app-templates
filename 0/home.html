@@ -39,7 +39,11 @@
             })
             //--------------------------------------------------------
             var ready1=function(){
-                $('#total__ID').text(Object.keys($vm.module_list).length-6+" apps");
+                var I=0;
+                for(a in $vm.module_list){
+                    if($vm.module_list[a].app==1) I++;
+                }
+                $('#total__ID').text(I+" modules");
 
 
                 var website_item_list_for_search=[]

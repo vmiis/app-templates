@@ -15,7 +15,8 @@
                 for(a in $vm.module_list){
                     if( (folder=='ALL' || a[0].toUpperCase()==folder) && a!='home' && a[0]!='_'){
                         var name=$vm.module_list[a].name;
-                        if(name==undefined) name=a.replace(/_/g,' ').replace(/-/g,' ');
+                        var prefix_len=$vm.module_list[a].prefix.length;
+                        if(name==undefined) name=a.substring(prefix_len).replace(/_/g,' ').replace(/-/g,' ');
                         name=name.charAt(0).toUpperCase() + name.slice(1);
                         txt+="<a href=?/"+a+">"+name+"</a><br>";
                     }
