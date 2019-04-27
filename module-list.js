@@ -17,6 +17,7 @@
         "bookkeeping-for-vmautomation": {url:"$H/b/bookkeeping-vmautomation/index.html",app:1},
         "particle-background":          {url:"$H/p/particle-background/index.html",app:1},
         "sleep-fix":                    {url:"$H/s/sleep-fix/index.html",app:1},
+        "restaurant":                   {url:"$H/r/restaurant/index.html",app:1},
     }
     url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------

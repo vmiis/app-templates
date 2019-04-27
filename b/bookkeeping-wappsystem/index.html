@@ -46,7 +46,7 @@
         //all other modules, used on demand 
         $vm.app_modules=[
             //you can add a js file that will add mmodules to the $vm.module_list
-            "$M/module-list.js",
+            "$M/module-list-bookkeeping.js",
         ]
         for(i in $vm.app_modules) $vm.app_modules[i]=$vm.app_modules[i].replace('$M',$vm.m_path);
         //------------------------------------
