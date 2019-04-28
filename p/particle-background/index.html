@@ -13,17 +13,18 @@
         <div id=header></div>
         <div id=content></div>
         <div id=footer></div>
+        <div id=system style='display:none'></div>
         <div id=app_background style='position:absolute'></div>
-        <div id=app style='display:none'></div>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
     </body>
     <script boot-up>
         //------------------------------------
         $vm={};$vm.ver=[0.10,0.10]; //increase ver[0] if any module changed, increase ver[1] if vm.js changed
+        $vm.debug=1;
         //------------------------------------
         //setup modules location
         $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
-        if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-templates.vmiis.com/p/particle-background";
+        if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-templates.vmiis.com/p/partical-background";
         if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
         $vm.m_path='https://modules.vmiis.com'; if($vm.localhost==true) $vm.m_path='http://127.0.0.1:8000/vmiis/modules'; 
         //------------------------------------
@@ -37,6 +38,7 @@
         $vm.module_list={
             //you can add modules here directly
             "home":	        {url:"$H/0/home.html",router:1},
+            "frame":	    {url:"$H/0/frame.html"},
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
@@ -54,9 +56,9 @@
         //------------------------------------
         //called by framework
         $vm.start=function(){
-            $vm.load_component('header',$vm.root_layout_header,{});
-            $vm.load_component('footer',$vm.root_layout_footer,{});
-            $vm.load_component('app',$vm.root_layout_app,{});
+            $vm.load_component('header','header',{});
+            $vm.load_component('footer','footer',{});
+            $vm.load_component('app','system',{});
             $vm.load_component('background','app_background',{});
         }
         //------------------------------------
@@ -68,10 +70,7 @@
         //------------------------------------
         $VmAPI={};$vm.start_time=new Date().getTime();
         //------------------------------------
-        $vm.root_layout_header='header';
         $vm.root_layout_content_slot='content'
-        $vm.root_layout_footer='footer';
-        $vm.root_layout_app='app';
         //---------------------------------------------
         $vm._I=0; $vm._N=$vm.start_modules.length;
         $vm._boot=function(){

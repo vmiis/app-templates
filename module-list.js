@@ -22,6 +22,7 @@
         "car-booking":                  {url:"$H/c/car-booking/index.html",app:1},
         "equipment-booking":            {url:"$H/e/equipment-booking/index.html",app:1},
         "clever-lights":                {url:"$H/c/clever-lights/index.html",app:1},
+        "nasa-background":              {url:"$H/n/nasa-background/index.html",app:1},
     }
     url_replace(modules,"","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
