@@ -36,11 +36,15 @@
                 if(m_name!=undefined && $vm.module_list[m_name].show!=undefined) $vm.module_list[m_name].show();
                 if($vm.active_id!=undefined){
                     $('#D'+$vm.active_id).css('height','unset');
-                    $('#D'+$vm.active_id).css('min-height',$vm.min_height+"px");
+                    $('#D'+$vm.active_id).css('min-height',($(window).height()-$('#header').outerHeight())+"px");
                     $('#D'+$vm.active_id).css('overflow','unset');
                     $('#D'+$vm.active_id).css('overflow-x','auto');
                 }
-                if(m_name=='home') $('#D'+$vm.active_id).css('height',$vm.min_height+"px");
+                if(m_name=='home'){
+                    $('#header').hide();
+                    $('#D'+$vm.active_id).css('height',$(window).height()+"px");
+                }
+                else $('#header').show();
             }
             //------------------------------------
             window.onresize=function(){set_layout();}
@@ -63,6 +67,6 @@
     <style main-style>
         html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
         body{background-size: cover; background-repeat: repeat-x; background-position: center top; background-attachment: fixed;}
-        .body_background_default{ background-image: url(https://image.vmiis.com/bk002.jpg);}
+        .body_background_default{ background-image: url(__CURRENT_PATH__/background_image_m.jpg);}
     </style>
 </div>
