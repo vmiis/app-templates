@@ -23,6 +23,12 @@
         "equipment-booking":            {url:"$H/e/equipment-booking/index.html",app:1},
         "clever-lights":                {url:"$H/c/clever-lights/index.html",app:1},
         "nasa-background":              {url:"$H/n/nasa-background/index.html",app:1},
+        "bubble-background":            {url:"$H/b/bubble-background/index.html",app:1},
+        "snow-background":              {url:"$H/s/snow-background/index.html",app:1},
+        "nyan-background":              {url:"$H/n/nyan-background/index.html",app:1},
+        "flat-trial":                   {url:"$H/f/flat-trial/index.html",app:1},
+        "survey":                       {url:"$H/s/survey/index.html",app:1},
+        "success":                      {url:"$H/s/success/index.html",app:1},
     }
     url_replace(modules,"","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
