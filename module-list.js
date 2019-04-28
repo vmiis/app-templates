@@ -29,6 +29,8 @@
         "flat-trial":                   {url:"$H/f/flat-trial/index.html",app:1},
         "survey":                       {url:"$H/s/survey/index.html",app:1},
         "success":                      {url:"$H/s/success/index.html",app:1},
+        "fountains-illumination":       {url:"$H/f/fountains-illumination/index.html",app:1},
+        
     }
     url_replace(modules,"","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
