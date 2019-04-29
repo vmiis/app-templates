@@ -11,7 +11,30 @@
             $('#D__ID').on('load',function(){
                 var m=$vm.module_list["__MODULE__"];
                 var folder=m.input.folder;
+                if(folder==undefined) folder="ALL";
+                var st=[];
+                for(a in $vm.module_list){
+                    var prefix=$vm.module_list[a].prefix; if(prefix==undefined) prefix="";
+                    var L=prefix.length;
+                    var nm=a.substring(L);
+                    if( (folder=='ALL' || nm[0].toUpperCase()==folder) && $vm.module_list[a].app==1){
+                        st.push(nm+"|"+prefix);
+                    }
+                }
+                st.sort();
+
                 var txt="";
+                for(i in st){
+                    var x=st[i].split('|');
+                    var a=x.pop()+x[0];
+                    var name=x[0];
+                    //if(name==undefined) 
+                    name=name.replace(/_/g,' ').replace(/-/g,' ');
+                    name=name.charAt(0).toUpperCase() + name.slice(1);
+                    txt+="<a href=?/"+a+" tags='"+$vm.module_list[a].tags+"'>"+name+"</a><br>";
+                }
+                
+                /*
                 for(a in $vm.module_list){
                     var name=$vm.module_list[a].name;
                     var prefix_len=0;
@@ -22,6 +45,9 @@
                         txt+="<a href=?/"+a+">"+name+"</a><br>";
                     }
                 }
+                */
+                
+                
                 $('#panel__ID').html(txt);
                 $('.panel__ID a').on('click',function(e){
                     e.preventDefault();

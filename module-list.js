@@ -30,8 +30,22 @@
         "survey":                       {url:"$H/s/survey/index.html",app:1},
         "success":                      {url:"$H/s/success/index.html",app:1},
         "fountains-illumination":       {url:"$H/f/fountains-illumination/index.html",app:1},
+        "enquiry":                      {url:"$H/e/enquiry/index.html",app:1},
+        "event-calendar":               {url:"$H/e/event-calendar/index.html",app:1},
+        "medical-practitioner":         {url:"$H/m/medical-practitioner/index.html",app:1},
+        "fitness":                      {url:"$H/f/fitness/index.html",app:1},
+        "woolcock-template":            {url:"$H/w/woolcock-template/index.html",app:1},
+        "purchase-order-request":       {url:"$H/p/purchase-order-request/index.html",app:1},
+        "layout-with-fixed-header-and-footer":              {url:"$H/l/layout-with-fixed-header-and-footer/index.html",app:1},
+        "layout-with-fixed-header-and-scrollable-footer":   {url:"$H/l/layout-with-fixed-header-and-scrollable-footer/index.html",app:1},
+        "layout-with-scrollable-header-and-footer-1":       {url:"$H/l/layout-with-scrollable-header-and-footer-1/index.html",app:1},
+        "layout-with-scrollable-header-and-footer-2":       {url:"$H/l/layout-with-scrollable-header-and-footer-2/index.html",app:1},
+        "layout-with-side-nav-and-fixed-footer":            {url:"$H/l/layout-with-side-nav-and-fixed-footer/index.html",app:1},
+
         
+        
+        //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
-    url_replace(modules,"","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
+    url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
 })();

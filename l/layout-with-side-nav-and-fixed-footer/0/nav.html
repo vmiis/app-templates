@@ -1,0 +1,206 @@
+<div id=D__ID>
+    <div>
+        <div class="vm-desk-logo vm-desk-items">
+            <span id=vm-logo-label-A>Business Portal</span><br>
+            <span id=vm-logo-label-B>on-demand business applications</span>
+        </div>
+        <div id="vm-menu">
+            <a href="?/home"><i class="fa fa-home"></i>Home</a>
+            <div>
+                <span class=vm-folder><i class="fa fa-folder-open-o"></i>Articles</span>
+                <div class="vm-folder-content vm-menu-show">
+                    <li><a href="?/short-page">Short</a></li>
+                    <li><a href="?/long-page">Long</a></li>
+                </div>
+            </div>
+            <a href="?/about-vmiis"><i class="fa fa-info-circle"></i> About</a><br>
+            <a id=vm_signin onclick=$vm.signin()><i class="fa fa-user"></i>Sign In</a>
+            <a id=vm_signout class=vm-hide onclick=$vm.signout()><i class="fa fa-user"></i>Sign Out</a>
+        </div>
+    </div>
+    <script>
+        //------------------------------------
+        $('#vm-mobile_title').on('click',function(){ $vm.load_module('home',$vm.root_layout_content_slot,{}) })
+        $('.vm-desk-logo').on('click',function(){ $vm.load_module('home',$vm.root_layout_content_slot,{}) })
+        //------------------------------------
+        $('.vm-dropdown').on('click',function(e){
+            var d=$(this).find('.vm-dropdown-content');
+            if(d.css('display')=='block') d.css('display','none');
+            else d.css('display','block');
+        })
+        $(".vm-dropdown").mouseleave(function (){  $(".vm-dropdown-content").hide();  })
+        $(".vm-dropdown-content").mouseleave(function (){  $(this).hide();  })
+        $vm.toggle=function() {
+            var x = document.getElementById("vm-menu");
+            if(x.className==='') x.className="responsive";
+            else x.className="";
+        }
+        //------------------------------------
+        $('#vm-menu a').on('click',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            if(href!=undefined && href!='' && href.substring(0,8)=="https://"){ window.open(href); return;}
+            if(href!=undefined && href!=''){
+                if($vm.menu_click!=undefined) $vm.menu_click(href);
+            }
+            $vm.toggle();
+        })
+        //------------------------------------
+        $vm.menu_click=function(href){
+            href=href.replace('?\/','');
+            href=href.replace(/\//g,'_');
+            $vm.load_module(href,$vm.root_layout_content_slot,{});
+        }
+        //------------------------------------
+        $vm.header_ready=1;
+        //------------------------------------
+    </script>
+    <style>
+        #nav{
+            /*width:290px;*/
+            background:rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+        /*----------------------*/
+        #header{
+            height:0px;
+        }
+        .vm-desk-logo{float:left;padding:36px 30px 0 30px;cursor:pointer;}
+        #vm-menu{ float:left;padding:50px 30px 0 30px;}
+        @media screen and (max-width: 1200px){
+            #vm-menu{ float:left;padding:20px 30px 0 20px;}
+            #header{height:50px;}
+            #nav{
+                background:rgba(0,0,0,0.7);
+            }
+        }
+        :root {
+            --menu-color: #fff;
+            --menu-hover-color: #29eca6;
+            --menu-hover-background-color: #555;
+
+            --dropdown-menu-color:#666;
+            --dropdown-menu-background-color:#f9f9f9;
+            --dropdown-menu-hover-color:#555;
+            --dropdown-menu-hover-background-color:#ddd;
+            --dropdown-menu-border-color:#ddd;
+
+            --mobile-title-color:#fff;
+            --mobile-hamburger-color:#fff;
+            --mobile-menu-background-color:#1c3144;
+        }
+        #vm-logo-label-A{
+            font-family: Arial, sans-serif;
+            color:#fff;
+            font-size: 200%;
+            line-height:10px;
+            display:inline-block;
+        }
+        #vm-logo-label-B{
+            font-family: Arial, sans-serif;
+            color:#fff;
+            font-size: 93%;
+            line-height:80%;
+            display:inline-block;
+        }
+        /*menu*/
+        #vm-menu {
+            overflow: hidden;
+            display:inline-block;
+            float:left;
+        }
+        #vm-menu > a, #vm-menu span {
+            color:var(--menu-color);
+            display: block;
+            text-decoration: none;
+            font-size: 14px;
+            cursor:pointer;
+        }
+        #vm-menu a:hover, #vm-menu span:hover{
+          color:var(--menu-hover-color);
+        }
+        #vm-menu i{
+            width:20px;
+        }
+        .vm-menu-show{
+            display:block;
+            max-height: 1000px;
+            overflow: hidden;
+            animation: vm_menu_show_0 1.8s;
+        }
+        .vm-menu-hide{
+            display:none;
+        }
+        .vm-folder-content{
+            padding-left:20px;
+        }
+        .vm-folder-content li, .vm-folder-content li a{
+            color:var(--menu-color);
+            text-decoration: none;
+            font-size: 14px;
+            cursor:pointer;
+        }
+        .vm-hide{
+            display:none!Important;
+        }
+        .vm-mobile{
+            display:none;
+        }
+        /*----------------------*/
+        @media screen and (max-width: 900px) {
+            .vm-desk-items{display:none;}
+            #nav{
+                display:none;
+            }
+            .responsive .vm-desk-items{
+                display:none;
+            }
+            .responsive{
+                z-index: 100;
+                position:fixed;
+                height:100%;
+                display:block!Important;
+                animation: vm-nav-show 1.0s;
+            }
+            .vm-mobile{
+                display:block;
+            }
+            .vm-mobile-title{
+                color:var(--mobile-title-color);
+                font-size: 28px;
+                display:inline-block;
+                padding: 3px 0 3px 12px;
+                cursor: pointer;
+            }
+            /*
+            #vm-hamburger-button{
+                float: right;
+                display: block;
+                font-size:28px;
+                padding:5px 16px 3px 16px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                cursor:pointer;
+                color:var(--mobile-hamburger-color);
+            }
+            */
+            .vm-mobile{
+                display:block;
+            }
+        }
+        @keyframes vm-menu-show {
+            from {max-height: 0px;}
+            to {max-height: 1000px;}
+        }
+        @keyframes vm-nav-show {
+            from {max-width: 0px;}
+            to {max-width: 290px;}
+        }
+    </style>
+</div>
+    
+
+
+
+
