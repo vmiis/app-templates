@@ -20,74 +20,20 @@
     </div>
     <script>
         //------------------------------------
-        $('#vm-mobile_title').on('click',function(){ $vm.load_module('home',$vm.root_layout_content_slot,{}) })
+        $('#vm-mobile-title').on('click',function(){ $vm.load_module('home',$vm.root_layout_content_slot,{}) })
         $('.vm-desk-logo').on('click',function(){ $vm.load_module('home',$vm.root_layout_content_slot,{}) })
-        //------------------------------------
-        $('.vm-dropdown').on('click',function(e){
-            var d=$(this).find('.vm-dropdown-content');
-            if(d.css('display')=='block') d.css('display','none');
-            else d.css('display','block');
-        })
-        $(".vm-dropdown").mouseleave(function (){  $(".vm-dropdown-content").hide();  })
-        $(".vm-dropdown-content").mouseleave(function (){  $(this).hide();  })
-        $vm.toggle=function() {
-            var x = document.getElementById("vm-menu");
-            if(x.className==='') x.className="responsive";
-            else x.className="";
-        }
-        //------------------------------------
-        $('#vm-menu a').on('click',function(e){
-            e.preventDefault();
-            var href=$(this).attr('href');
-            if(href!=undefined && href!='' && href.substring(0,8)=="https://"){ window.open(href); return;}
-            if(href!=undefined && href!=''){
-                if($vm.menu_click!=undefined) $vm.menu_click(href);
-            }
-            $vm.toggle();
-        })
-        //------------------------------------
-        $vm.menu_click=function(href){
-            href=href.replace('?\/','');
-            href=href.replace(/\//g,'_');
-            $vm.load_module(href,$vm.root_layout_content_slot,{});
-        }
         //------------------------------------
         $vm.header_ready=1;
         //------------------------------------
     </script>
     <style>
         #nav{
-            /*width:290px;*/
+            width:290px;
             background:rgba(0,0,0,0.5);
             white-space: nowrap;
         }
-        /*----------------------*/
-        #header{
-            height:0px;
-        }
-        .vm-desk-logo{float:left;padding:36px 30px 0 30px;cursor:pointer;}
-        #vm-menu{ float:left;padding:50px 30px 0 30px;}
-        @media screen and (max-width: 1200px){
-            #vm-menu{ float:left;padding:20px 30px 0 20px;}
-            #header{height:50px;}
-            #nav{
-                background:rgba(0,0,0,0.7);
-            }
-        }
-        :root {
-            --menu-color: #fff;
-            --menu-hover-color: #29eca6;
-            --menu-hover-background-color: #555;
-
-            --dropdown-menu-color:#666;
-            --dropdown-menu-background-color:#f9f9f9;
-            --dropdown-menu-hover-color:#555;
-            --dropdown-menu-hover-background-color:#ddd;
-            --dropdown-menu-border-color:#ddd;
-
-            --mobile-title-color:#fff;
-            --mobile-hamburger-color:#fff;
-            --mobile-menu-background-color:#1c3144;
+        #content{
+            overflow:auto;
         }
         #vm-logo-label-A{
             font-family: Arial, sans-serif;
@@ -103,6 +49,61 @@
             line-height:80%;
             display:inline-block;
         }
+        /*----------------------*/
+        :root {
+            --menu-color: #fff;
+            --menu-hover-color: #29eca6;
+            --mobile-title-color:#fff;
+            --mobile-hamburger-color:#fff;
+        }
+        /*----------------------*/
+        #header{height:0px;background:rgba(0,0,0,0.8);}
+        .vm-desk-logo{ display:inline-block; padding:36px 0 0 10px;cursor:pointer;}
+        #vm-menu{ float:left;padding:50px 30px 0 20px;}
+        @media screen and (max-width: 900px){
+            #vm-menu{ float:left;padding:20px 30px 0 20px;}
+            #header{height:50px;}
+            #nav{
+                background:rgba(0,0,0,0.7);
+            }
+        }
+    </style>
+    <script menu-code>
+        $vm.toggle=function() {
+            var x = document.getElementById("nav");
+            if(x.className==='') x.className="responsive";
+            else x.className="";
+        }
+        //------------------------------------
+        $('#vm-menu a').on('click',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            if(href!=undefined && href!=''){
+                if($vm.menu_click!=undefined) $vm.menu_click(href);
+            }
+            $vm.toggle();
+        })
+        //------------------------------------
+        $('#vm-menu .vm-folder').on('click',function(){
+            var $folder=$(this).find('i');
+            var $div=$(this).next('div');
+            if($folder.hasClass('fa-folder-open-o')){
+                $folder.removeClass('fa-folder-open-o').addClass('fa-folder-o');
+                $div.removeClass('vm-menu-show').addClass('vm-menu-hide');
+            }
+            else if($folder.hasClass('fa-folder-o')){
+                $folder.removeClass('fa-folder-o').addClass('fa-folder-open-o');
+                $div.removeClass('vm-menu-hide').addClass('vm-menu-show');
+            }
+        })
+        //--------------------------------------------------------
+        $vm.menu_click=function(href){
+            href=href.replace('?\/','');
+            href=href.replace(/\//g,'_');
+            $vm.load_module(href,$vm.root_layout_content_slot,{});
+        }
+    </script>
+    <style menu-style>
         /*menu*/
         #vm-menu {
             overflow: hidden;
@@ -172,7 +173,6 @@
                 padding: 3px 0 3px 12px;
                 cursor: pointer;
             }
-            /*
             #vm-hamburger-button{
                 float: right;
                 display: block;
@@ -184,7 +184,6 @@
                 cursor:pointer;
                 color:var(--mobile-hamburger-color);
             }
-            */
             .vm-mobile{
                 display:block;
             }
@@ -199,8 +198,3 @@
         }
     </style>
 </div>
-    
-
-
-
-
