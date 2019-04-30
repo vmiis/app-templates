@@ -42,7 +42,8 @@
         "layout-with-scrollable-header-and-footer-2":       {url:"$H/l/layout-with-scrollable-header-and-footer-2/index.html",app:1},
         "layout-with-side-nav-and-fixed-footer":            {url:"$H/l/layout-with-side-nav-and-fixed-footer/index.html",app:1},
         "first-aid-officer":                                {url:"$H/f/first-aid-officer/index.html",app:1},
-        
+        "policies-and-forms":                               {url:"$H/p/policies-and-forms/index.html",app:1},
+                
         
         
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
