@@ -1,0 +1,57 @@
+<div id=D__ID>
+	<div id=page1__ID class=home_page_1>
+		<div class="container-fluid" style='max-width:800px'>
+			<div class="text-center panel__ID">
+				<br>
+				<h1>Tom Li</h1>
+                <h6>IT Support Professional</h6>
+				<hr style='border-top:1px solid #f05f40;'></hr>
+				<p>Monitor and maintain the computer systems and networks of an organisation.</p>
+				<br><br>
+			</div>
+		</div>
+	</div>
+	<div id=page2__ID style='background-color: #fff;min-height:800px;padding-top:30px;'>
+		<div style='max-width:800px'>
+			<ul style='margin-bottom:0'>
+				<li>aaa</li>
+				<li>bbb</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		$('#D__ID').on('load',function(){
+		})
+	</script>
+	<style>
+		#D__ID{
+			height:100%;
+	        overflow:auto;
+			animation: vm_module_fadein 1.0s, D__ID 3s;
+		}
+		#page1__ID{
+			display: flex;
+			align-items: center;
+		}
+		.panel__ID{
+			color:#fff;
+			background: rgba(0, 0, 0, 0);
+			border-radius: 25px;
+			padding:10px;
+		}
+		@keyframes D__ID {
+			from {padding-top: 300px;}
+			to {padding-top: 0px;}
+		}
+	    @media screen and (max-width: 992px) {
+	        #D__ID{
+	            animation: vm_module_fadein 1.0s;
+	        }
+	    }
+	</style>
+	<script>
+		function F__ID(){
+			$vm['home_ready']=1;
+		}
+	</script>
+</div>

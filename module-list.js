@@ -43,6 +43,7 @@
         "layout-with-side-nav-and-fixed-footer":            {url:"$H/l/layout-with-side-nav-and-fixed-footer/index.html",app:1},
         "first-aid-officer":                                {url:"$H/f/first-aid-officer/index.html",app:1},
         "policies-and-forms":                               {url:"$H/p/policies-and-forms/index.html",app:1},
+        "tom":                                              {url:"$H/t/tom/index.html",app:1},
                 
         
         
