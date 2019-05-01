@@ -41,6 +41,8 @@
                     $('#D'+$vm.active_id).css('overflow-x','auto');
                 }
                 if(m_name=='home') $('#D'+$vm.active_id+">div.home_page_1").css('height',$vm.min_height+"px");
+                if(m_name=='home') $("#header").css("background","rgba(0,0,0,0)");
+                else $("#header").css("background","rgba(0,0,0,0.5)");
             }
             //------------------------------------
             window.onresize=function(){set_layout();}
@@ -58,6 +60,15 @@
             if($vm['header_ready']==1 && $vm['footer_ready']==1){  clearInterval(loop_1); ready1(); }
             I++; if(I>50){ clearInterval(loop_1); alert("header error."); }
         },100);
+        //-------------------------------------
+        $(window).on('scroll', function() {
+            if($vm.active_name=='home'){
+                var y=-$(window).scrollTop()/2;
+                $('body').css({ 'background-position-y': y+'px'});
+                var r=-y/300; if(r>0.5) r=0.5;
+                $("#header").css("background","rgba(0,0,0,"+r+")");
+            }
+        });
         //-------------------------------------
     </script>
     <style main-style>
