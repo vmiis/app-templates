@@ -45,7 +45,7 @@
         "policies-and-forms":                               {url:"$H/p/policies-and-forms/index.html",app:1},
         "tom":                                              {url:"$H/t/tom/index.html",app:1},
         "giving":                                           {url:"$H/g/giving/index.html",app:1},
-        "whitw":                                            {url:"$H/w/white/index.html",app:1},
+        "white":                                            {url:"$H/w/white/index.html",app:1},
                 
         
         
