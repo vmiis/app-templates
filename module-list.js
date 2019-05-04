@@ -46,6 +46,7 @@
         "tom":                                              {url:"$H/t/tom/index.html",app:1},
         "giving":                                           {url:"$H/g/giving/index.html",app:1},
         "white":                                            {url:"$H/w/white/index.html",app:1},
+        "hotel":                                            {url:"$H/h/hotel/index.html",app:1},
                 
         
         
