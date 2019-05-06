@@ -1,11 +1,11 @@
 <div id=D__ID>
     <div>
         <div class=vm-mobile>
-            <span id=vm-mobile_title class=vm-mobile-title>VMIIS Office 365</span>
+            <span id=vm-mobile_title class=vm-mobile-title>VMIIS 365</span>
             <a id="vm-hamburger_button" class=vm-hamburger-button onclick="$vm.toggle()"><i class="fa fa-bars"></i></a>
         </div>
         <div class=vm-desk-logo>
-            <span id=vm-logo-label-A>VMIIS Office 365</span><br>
+            <span id=vm-logo-label-A>VMIIS 365</span><br>
         </div>
         <div menu id="vm-menu">
             <a href="?/home"><i class="fa fa-home"></i> Home</a>
@@ -15,68 +15,65 @@
         </div>
     </div>
     <script>
-        $vm.office365_init=function(){
+        $vm.m365_init=function(){
             //------------------------------------
-            $vm.o365={};
-            $vm.o365.organizationURI = "https://vmiis.crm6.dynamics.com";
-            $vm.o365.sharepointURI   = "https://vmiis.sharepoint.com";
-            $vm.o365.tenant          = "vmiis.onmicrosoft.com";
-            $vm.o365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
-            $vm.o365.pageUrl         =$vm.hosting_path+"/index.html";
+            $vm.m365={};
+            $vm.m365.organizationURI = "https://vmiis.crm6.dynamics.com";
+            $vm.m365.sharepointURI   = "https://vmiis.sharepoint.com";
+            $vm.m365.tenant          = "vmiis.onmicrosoft.com";
+            $vm.m365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
+            $vm.m365.pageUrl         = $vm.hosting_path+"/index.html";
             //------------------------------------
             var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
             
-            $vm.o365.endpoints = {  
-                orgUri: $vm.o365.organizationURI,
-                sharePointUri: $vm.o365.sharepointURI,  
+            $vm.m365.endpoints = {  
+                orgUri: $vm.m365.organizationURI,
+                sharePointUri: $vm.m365.sharepointURI,  
             };
-            $vm.o365.config = {  
-                tenant: $vm.o365.tenant,  
-                clientId: $vm.o365.clientId,  
-                postLogoutRedirectUri: $vm.o365.pageUrl,  
-                endpoints: $vm.o365.endpoints,  
+            $vm.m365.config = {  
+                tenant: $vm.m365.tenant,  
+                clientId: $vm.m365.clientId,  
+                postLogoutRedirectUri: $vm.m365.pageUrl,  
+                endpoints: $vm.m365.endpoints,  
                 cacheLocation: 'localStorage', 
             };
-            $vm.o365.authenticate=function() {  
+            $vm.m365.authenticate=function() {  
                 //OAuth context  
-                $vm.o365.authContext=new AuthenticationContext($vm.o365.config);  
+                $vm.m365.authContext=new AuthenticationContext($vm.m365.config);  
                 // Check For & Handle Redirect From AAD After Login  
-                var isCallback = $vm.o365.authContext.isCallback(window.location.hash);  
+                var isCallback = $vm.m365.authContext.isCallback(window.location.hash);  
                 if (isCallback) {  
-                    $vm.o365.authContext.handleWindowCallback();  
+                    $vm.m365.authContext.handleWindowCallback();  
                 }  
-                var loginError = $vm.o365.authContext.getLoginError();  
+                var loginError = $vm.m365.authContext.getLoginError();  
 
                 if (isCallback && !loginError) {  
-                    window.location = $vm.o365.authContext._getItem($vm.o365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
+                    window.location = $vm.m365.authContext._getItem($vm.m365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
                 }  
                 else {  
                     //errorMessage.textContent = loginError;  
                     //alert(loginError)
                 }  
-                $vm.o365.user=$vm.o365.authContext.getCachedUser();  
-                if($vm.o365.user!=null){
-                    $vm.user_name=$vm.o365.user.profile.given_name+' '+$vm.o365.user.profile.family_name;
+                $vm.m365.user=$vm.m365.authContext.getCachedUser();  
+                if($vm.m365.user!=null){
+                    $vm.user_name=$vm.m365.user.profile.given_name+' '+$vm.m365.user.profile.family_name;
                     $vm.show_user();
                 }
             }  
             //------------------------------------
-            //$vm.o365.authenticate(); 
-            //------------------------------------
         }
-        $vm.office365_init();
+        $vm.m365_init();
         if(window.opener){
             sessionStorage.clear();
             window.opener=null;
         }
-        $vm.o365.authenticate();  
-
+        $vm.m365.authenticate();  
         $('#vm_signin').on('click',function(){
-            $vm.o365.authContext.login();  
+            $vm.m365.authContext.login();  
         })
         //------------------------------------
         $('#vm_signout').on('click',function(){
-            $vm.o365.authContext.logOut();  
+            $vm.m365.authContext.logOut();  
             $vm.user_name="";
             $vm.show_user();
         })
@@ -102,58 +99,58 @@
 
         /*
         //------------------------------------
-        $vm.o365={};
-        $vm.o365.organizationURI = "https://vmiis.crm6.dynamics.com";
-        $vm.o365.sharepointURI   = "https://vmiis.sharepoint.com";
-        $vm.o365.tenant          = "vmiis.onmicrosoft.com";
-        $vm.o365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
-        $vm.o365.pageUrl         = "http://127.0.0.1:8000/vmiis/online-profile/modules/v/vmiis-365-app/index.html";
+        $vm.m365={};
+        $vm.m365.organizationURI = "https://vmiis.crm6.dynamics.com";
+        $vm.m365.sharepointURI   = "https://vmiis.sharepoint.com";
+        $vm.m365.tenant          = "vmiis.onmicrosoft.com";
+        $vm.m365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
+        $vm.m365.pageUrl         = "http://127.0.0.1:8000/vmiis/online-profile/modules/v/vmiis-365-app/index.html";
         //------------------------------------
         var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
         
-        $vm.o365.endpoints = {  
-            orgUri: $vm.o365.organizationURI,
-            sharePointUri: $vm.o365.sharepointURI,  
+        $vm.m365.endpoints = {  
+            orgUri: $vm.m365.organizationURI,
+            sharePointUri: $vm.m365.sharepointURI,  
         };
-        $vm.o365.config = {  
-            tenant: $vm.o365.tenant,  
-            clientId: $vm.o365.clientId,  
-            postLogoutRedirectUri: $vm.o365.pageUrl,  
-            endpoints: $vm.o365.endpoints,  
+        $vm.m365.config = {  
+            tenant: $vm.m365.tenant,  
+            clientId: $vm.m365.clientId,  
+            postLogoutRedirectUri: $vm.m365.pageUrl,  
+            endpoints: $vm.m365.endpoints,  
             cacheLocation: 'localStorage', 
         };
          
-        $vm.o365.authenticate=function() {  
+        $vm.m365.authenticate=function() {  
             //OAuth context  
-            $vm.o365.authContext=new AuthenticationContext($vm.o365.config);  
+            $vm.m365.authContext=new AuthenticationContext($vm.m365.config);  
             // Check For & Handle Redirect From AAD After Login  
-            var isCallback = $vm.o365.authContext.isCallback(window.location.hash);  
+            var isCallback = $vm.m365.authContext.isCallback(window.location.hash);  
             if (isCallback) {  
-                $vm.o365.authContext.handleWindowCallback();  
+                $vm.m365.authContext.handleWindowCallback();  
             }  
-            var loginError = $vm.o365.authContext.getLoginError();  
+            var loginError = $vm.m365.authContext.getLoginError();  
 
             if (isCallback && !loginError) {  
-                window.location = $vm.o365.authContext._getItem($vm.o365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
+                window.location = $vm.m365.authContext._getItem($vm.m365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
             }  
             else {  
                 //errorMessage.textContent = loginError;  
                 //alert(loginError)
             }  
-            $vm.o365.user=$vm.o365.authContext.getCachedUser();  
-            if($vm.o365.user!=null){
-                $vm.user_name=$vm.o365.user.profile.given_name+' '+$vm.o365.user.profile.family_name;
+            $vm.m365.user=$vm.m365.authContext.getCachedUser();  
+            if($vm.m365.user!=null){
+                $vm.user_name=$vm.m365.user.profile.given_name+' '+$vm.m365.user.profile.family_name;
                 $vm.show_user();
             }
         }  
         //------------------------------------
-        //$vm.o365.authenticate();  
+        //$vm.m365.authenticate();  
         $('#vm_signin').on('click',function(){
-            $vm.o365.authContext.login();  
+            $vm.m365.authContext.login();  
         })
         //------------------------------------
         $('#vm_signout').on('click',function(){
-            $vm.o365.authContext.logOut();  
+            $vm.m365.authContext.logOut();  
             $vm.user_name="";
             $vm.show_user();
         })
@@ -167,7 +164,7 @@
             $vm.init(function(){
                $vm.init_status=1;
                //$vm.show_user();
-               $vm.o365.authenticate();  
+               $vm.m365.authenticate();  
            })
         }
         */
