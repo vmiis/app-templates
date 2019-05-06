@@ -86,6 +86,54 @@
             if($vm.demo_scroll!=undefined) $vm.demo_scroll();
         });
         //-------------------------------------
+        $vm.office365_init=function(){
+            //------------------------------------
+            $vm.o365={};
+            $vm.o365.organizationURI = "https://vmiis.crm6.dynamics.com";
+            $vm.o365.sharepointURI   = "https://vmiis.sharepoint.com";
+            $vm.o365.tenant          = "vmiis.onmicrosoft.com";
+            $vm.o365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
+            $vm.o365.pageUrl         = "http://127.0.0.1:8000/vmiis/online-profile/modules/v/vmiis-365-app/index.html";
+            //------------------------------------
+            var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
+            
+            $vm.o365.endpoints = {  
+                orgUri: $vm.o365.organizationURI,
+                sharePointUri: $vm.o365.sharepointURI,  
+            };
+            $vm.o365.config = {  
+                tenant: $vm.o365.tenant,  
+                clientId: $vm.o365.clientId,  
+                postLogoutRedirectUri: $vm.o365.pageUrl,  
+                endpoints: $vm.o365.endpoints,  
+                cacheLocation: 'localStorage', 
+            };
+            
+            $vm.o365.authenticate=function() {  
+                //OAuth context  
+                $vm.o365.authContext=new AuthenticationContext($vm.o365.config);  
+                // Check For & Handle Redirect From AAD After Login  
+                var isCallback = $vm.o365.authContext.isCallback(window.location.hash);  
+                if (isCallback) {  
+                    $vm.o365.authContext.handleWindowCallback();  
+                }  
+                var loginError = $vm.o365.authContext.getLoginError();  
+
+                if (isCallback && !loginError) {  
+                    window.location = $vm.o365.authContext._getItem($vm.o365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
+                }  
+                else {  
+                    //errorMessage.textContent = loginError;  
+                    //alert(loginError)
+                }  
+                $vm.o365.user=$vm.o365.authContext.getCachedUser();  
+                if($vm.o365.user!=null){
+                    $vm.user_name=$vm.o365.user.profile.given_name+' '+$vm.o365.user.profile.family_name;
+                    $vm.show_user();
+                }
+            }  
+            //------------------------------------
+        }
     </script>
     <style main-style>
         html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
