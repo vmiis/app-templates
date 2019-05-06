@@ -37,7 +37,7 @@
         //modules used immediately
         $vm.module_list={
             //you can add modules here directly
-            "home":	        {url:"$H/0/home.html",router:1},
+            "home":	        {url:"$H/0/home.html",_router:1},
             "frame":	    {url:"$H/0/frame.html",sys:1},
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
@@ -65,7 +65,7 @@
             $vm.load_component('footer',$vm.root_layout_footer,{});
             $vm.load_component('app',$vm.root_layout_system,{});
 
-            $vm.office365_init();
+            //$vm.office365_init();
             /*
             if(window.opener){
                 sessionStorage.clear();
