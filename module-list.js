@@ -47,6 +47,7 @@
         "giving":                                           {url:"$H/g/giving/index.html",app:1},
         "white":                                            {url:"$H/w/white/index.html",app:1},
         "hotel":                                            {url:"$H/h/hotel/index.html",app:1},
+        "Word-pair-association":                            {url:"$H/w/Word-pair-association/index.html",app:1},
                 
         
         
