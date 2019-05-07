@@ -1,10 +1,13 @@
 <div id=D__ID>
 	<div id=page_1__ID class=home_page_1>
 		<div class="panel__ID" >
-			<p style='font-size:20px'> 
-				The Epworth Sleepiness Scale is a scale intended to measure daytime sleepiness that is 
-				measured by use of a very short questionnaire. This can be helpful in diagnosing sleep disorders. 
-				It was introduced in 1991 by Dr Murray Johns of Epworth Hospital in Melbourne, Australia. (from Wikipedia)
+			<p style='font-size:16px'> 
+					The body mass index (BMI) or Quetelet index is a value derived from the mass (weight) 
+					and height of an individual. The BMI is defined as the body mass divided by the square 
+					of the body height, and is universally expressed in units of kg/m2, resulting from mass 
+					in kilograms and height in metres. 
+					Commonly accepted BMI ranges are underweight: under 18.5 kg/m2, normal weight: 18.5 to 25, 
+					overweight: 25 to 30, obese: over 30. (from Wikipedia)
 			</p>
 			<p class=text-center>
 				<a id=get_in__ID class='btn btn-success' >Start to measure yourself</a>
@@ -17,7 +20,7 @@
 		$vm.load_component('health-news','news__ID',{})
 		$('#D__ID').on('load',function(){
 			$('#get_in__ID').on('click',function(){
-				$vm.load_module("epworth-sleepiness-scale",'',{})
+				$vm.load_module("body-mass-index",'',{})
 			})
 		})
 	</script>
