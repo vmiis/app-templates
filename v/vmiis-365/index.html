@@ -48,6 +48,8 @@
             "vm365-table1-data":   	        {url:"$M/v/vm365-table1-data.html",Table:"new_table1s",form_module:"vm365-table1-form"},
             "vm365-table1-form":   	        {url:"$M/v/vm365-table1-form.html",Table:"new_table1s"},
             "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
+            "vm365-contact-list-data":   	{url:"$M/v/vm365-contact-list-data.html",Table:"contact_list",form_module:"vm365-contact-list-form"},
+            "vm365-contact-list-form":   	{url:"$M/v/vm365-contact-list-form.html",Table:"contact_list"},
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$M',$vm.m_path);
