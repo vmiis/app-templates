@@ -66,22 +66,65 @@
             $vm.load_component('header',$vm.root_layout_header,{});
             $vm.load_component('footer',$vm.root_layout_footer,{});
             $vm.load_component('app',$vm.root_layout_system,{});
-
-            //$vm.office365_init();
-            /*
-            if(window.opener){
-                sessionStorage.clear();
-                window.opener=null;
-            }
-            $vm.init(function(){
-               $vm.init_status=1;
-               //$vm.show_user();
-               $vm.o365.authenticate();  
-           })
-           */
         }
         //------------------------------------
+        $vm.m365_init=function(){
+            //------------------------------------
+            $vm.m365={};
+            $vm.m365.organizationURI = "https://vmiis.crm6.dynamics.com";
+            $vm.m365.sharepointURI   = "https://vmiis.sharepoint.com";
+            $vm.m365.tenant          = "vmiis.onmicrosoft.com";
+            $vm.m365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
+            $vm.m365.pageUrl         = $vm.hosting_path+"/index.html";
+            //------------------------------------
+            var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
+            
+            $vm.m365.endpoints = {  
+                orgUri: $vm.m365.organizationURI,
+                sharePointUri: $vm.m365.sharepointURI,  
+            };
+            $vm.m365.config = {  
+                tenant: $vm.m365.tenant,  
+                clientId: $vm.m365.clientId,  
+                postLogoutRedirectUri: $vm.m365.pageUrl,  
+                endpoints: $vm.m365.endpoints,  
+                cacheLocation: 'localStorage', 
+            };
+            $vm.m365.authenticate=function() {  
+                //OAuth context  
+                $vm.m365.authContext=new AuthenticationContext($vm.m365.config);  
+                // Check For & Handle Redirect From AAD After Login  
+                var isCallback = $vm.m365.authContext.isCallback(window.location.hash);  
+                if (isCallback) {  
+                    $vm.m365.authContext.handleWindowCallback();  
+                }  
+                var loginError = $vm.m365.authContext.getLoginError();  
+
+                if (isCallback && !loginError) {  
+                    window.location = $vm.m365.authContext._getItem($vm.m365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
+                }  
+                else {  
+                    //errorMessage.textContent = loginError;  
+                    //alert(loginError)
+                }  
+                $vm.m365.user=$vm.m365.authContext.getCachedUser();  
+                if($vm.m365.user!=null){
+                    $vm.m365_user_name=$vm.m365.user.profile.given_name+' '+$vm.m365.user.profile.family_name;
+                    //$vm.show_user();
+                }
+            }  
+            //------------------------------------
+        }
+        $vm.m365_init();
+        if(window.opener){
+            sessionStorage.clear();
+            window.opener=null;
+        }
+        $vm.m365.authenticate();  
         
+
+
+
         
         //------------------------------------
         //Do not need to chang the following code in most cases

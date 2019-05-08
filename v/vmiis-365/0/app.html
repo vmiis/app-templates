@@ -50,8 +50,8 @@
             //------------------------------------
             $vm.init(function(){
                 $vm.init_status=1;
-                //$vm.show_user();
-                //$vm.office365_init();
+                if($vm.m365_user_name!=undefined) $vm.user_name=$vm.m365_user_name;
+                $vm.show_user();
             })
             //------------------------------------
             if($vm.first_module!=undefined) $vm.show($vm.first_module);
