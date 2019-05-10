@@ -16,11 +16,13 @@
     </div>
     <script>
         $('#vm_signin').on('click',function(){
-            $vm.m365.authContext.login();  
+            //$vm.m365.authContext.login();
+            $vm.m365_signin();  
         })
         //------------------------------------
         $('#vm_signout').on('click',function(){
-            $vm.m365.authContext.logOut();  
+            //$vm.m365.authContext.logOut();  
+            $vm.m365_signout();  
             $vm.user_name="";
             $vm.show_user();
         })
