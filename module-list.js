@@ -57,6 +57,6 @@
         
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
-    url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
+    url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://"+window.location.hostname+":8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
 })();

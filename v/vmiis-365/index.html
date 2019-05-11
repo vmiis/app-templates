@@ -68,106 +68,14 @@
             $vm.load_component('app',$vm.root_layout_system,{});
         }
         //------------------------------------
-        /*
-        $vm.m365_init=function(){
-            //------------------------------------
-            $vm.m365={};
-            $vm.m365.organizationURI = "https://vmiis.crm6.dynamics.com";
-            $vm.m365.sharepointURI   = "https://vmiis.sharepoint.com";
-            $vm.m365.tenant          = "vmiis.onmicrosoft.com";
-            $vm.m365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
-            $vm.m365.pageUrl         = $vm.hosting_path+"/index.html";
-            //------------------------------------
-            var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
-            
-            $vm.m365.endpoints = {  
-                orgUri: $vm.m365.organizationURI,
-                sharePointUri: $vm.m365.sharepointURI,  
-            };
-            $vm.m365.config = {  
-                tenant: $vm.m365.tenant,  
-                clientId: $vm.m365.clientId,  
-                postLogoutRedirectUri: $vm.m365.pageUrl,  
-                endpoints: $vm.m365.endpoints,  
-                cacheLocation: 'localStorage', 
-            };
-            $vm.m365.authenticate=function() {  
-                //OAuth context  
-                $vm.m365.authContext=new AuthenticationContext($vm.m365.config);  
-                // Check For & Handle Redirect From AAD After Login  
-                var isCallback = $vm.m365.authContext.isCallback(window.location.hash);  
-                if (isCallback) {  
-                    $vm.m365.authContext.handleWindowCallback();  
-                }  
-                var loginError = $vm.m365.authContext.getLoginError();  
-
-                if (isCallback && !loginError) {  
-                    window.location = $vm.m365.authContext._getItem($vm.m365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
-                }  
-                else {  
-                    //errorMessage.textContent = loginError;  
-                    //alert(loginError)
-                }  
-                $vm.m365.user=$vm.m365.authContext.getCachedUser();  
-                if($vm.m365.user!=null){
-                    $vm.m365_user_name=$vm.m365.user.profile.given_name+' '+$vm.m365.user.profile.family_name;
-                    //$vm.show_user();
-                }
-            }  
-            //------------------------------------
-        }
-        $vm.m365_init();
-        if(window.opener){
-            sessionStorage.clear();
-            window.opener=null;
-        }
-        $vm.m365.authenticate();  
-        */
-
         $vm.m365_scope={
             scopes: ["user.read"]
         };
-        /*        
-        $vm.m365_get=function(url,c_back){
-            //---------------------------------
-            function callMSGraph(theUrl, accessToken, callback) {
-                var xmlHttp = new XMLHttpRequest();
-                xmlHttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200)
-                        callback(JSON.parse(this.responseText));
-                }
-                xmlHttp.open("GET", theUrl, true); // true for asynchronous
-                xmlHttp.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-                xmlHttp.send();
-            }
-            //---------------------------------
-            $vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
-                callMSGraph(url,tokenResponse.accessToken,c_back);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-
-
-
-        var test=function(){
-            $vm.m365_get("https://graph.microsoft.com/v1.0/sites/root/lists/contact_list/items/?expand=fields",function(data){
-                console.log(data)
-            })
-        }
-        */
-
-
-
-
-
-
-
-
         $vm.msalConfig={
             auth: {
                 clientId: '82698c57-0152-44cb-ab2f-5c4a33064201', //This is your client ID
-                authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
+                //authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
+                authority: "https://login.microsoftonline.com/common" //This is your tenant info
             },
             cache: {
                 cacheLocation: "localStorage",
@@ -176,15 +84,6 @@
         };
         $vm.m365_init=function(){
             var myMSALObj =$vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
-            /*
-            var graphConfig = {
-                //graphMeEndpoint: "https://graph.microsoft.com/v1.0/me"
-                graphMeEndpoint: "https://graph.microsoft.com/v1.0/sites/root/lists/contact_list/items/?expand=fields"//getbytitle('contact_list')/items"
-            };
-            var requestObj = {
-                scopes: ["user.read"]
-            };        
-            */
             $vm.m365_signin=function (){
                 $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
                     if($vm.m365_msal.getAccount()!=undefined){
@@ -198,44 +97,6 @@
             $vm.m365_signout=function() {
                 $vm.m365_msal.logout();
             }
-
-            /*
-            function acquireTokenPopupAndCallMSGraph() {
-                //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
-                myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
-                    
-                    callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
-
-
-                }).catch(function (error) {
-                    console.log(error);
-                    // Upon acquireTokenSilent failure (due to consent or interaction or login required ONLY)
-                    // Call acquireTokenPopup(popup window) 
-                    if (requiresInteraction(error.errorCode)) {
-                        myMSALObj.acquireTokenPopup(requestObj).then(function (tokenResponse) {
-                            callMSGraph(graphConfig.graphMeEndpoint, tokenResponse.accessToken, graphAPICallback);
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-                    }
-                });
-            }
-            function graphAPICallback(data) {
-                //document.getElementById("json").innerHTML = JSON.stringify(data, null, 2);
-                $vm.__token=data;
-                //alert(JSON.stringify(data, null, 2))
-                console.log(data)
-            }
-
-            function requiresInteraction(errorCode) {
-                if (!errorCode || !errorCode.length) {
-                    return false;
-                }
-                return errorCode === "consent_required" ||
-                    errorCode === "interaction_required" ||
-                    errorCode === "login_required";
-            }
-            */
             if($vm.m365_msal.getAccount()!=undefined){
                 $vm.m365_user_name=$vm.m365_msal.getAccount().userName;
                 //test();
@@ -243,6 +104,7 @@
             }
         }
         $vm.m365_init();
+        //------------------------------------
 
 
 
