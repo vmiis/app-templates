@@ -51,6 +51,7 @@
         "vmiis-365":                                        {url:"$H/v/vmiis-365/index.html",app:1},
         "epworth-sleepiness-scale":                         {url:"$H/e/epworth-sleepiness-scale/index.html",app:1},
         "body-mass-index":                                  {url:"$H/b/body-mass-index/index.html",app:1},
+        "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
         
                 
         
