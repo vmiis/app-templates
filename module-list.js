@@ -77,12 +77,12 @@
     }
     url_replace(modules,"wapp-","$astn","https://astn.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/astn");
     url_replace(modules,"wapp-","$spardac","https://spardac.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/spardacmdb");
-    url_replace(modules,"wapp-","$cleverlights","https://wappsystem.github.io/cleverlights/index.html","http://127.0.0.1:8000/wappsystem/cleverlights");
-    url_replace(modules,"wapp-","$cleverlights-recruitment","https://wappsystem.github.io/cleverlights-recruitment/index.html","http://127.0.0.1:8000/wappsystem/cleverlights-recruitment");
-    url_replace(modules,"wapp-","$cleverlights-management","https://wappsystem.github.io/cleverlights-management/index.html","http://127.0.0.1:8000/wappsystem/cleverlights-management");
-    url_replace(modules,"wapp-","$neurovosa","https://wappsystem.github.io/neurovosa/index.html","http://127.0.0.1:8000/wappsystem/neurovosa");
-    url_replace(modules,"wapp-","$local-sleep","https://wappsystem.github.io/local-sleep/index.html","http://127.0.0.1:8000/wappsystem/local-sleep");
-    url_replace(modules,"wapp-","$sdm-ii","https://wappsystem.github.io/sdm-ii/index.html","http://127.0.0.1:8000/wappsystem/sdm-ii");
+    url_replace(modules,"wapp-","$cleverlights","https://wappsystem.github.io/cleverlights","http://127.0.0.1:8000/wappsystem/cleverlights");
+    url_replace(modules,"wapp-","$cleverlights-recruitment","https://wappsystem.github.io/cleverlights-recruitment","http://127.0.0.1:8000/wappsystem/cleverlights-recruitment");
+    url_replace(modules,"wapp-","$cleverlights-management","https://wappsystem.github.io/cleverlights-management","http://127.0.0.1:8000/wappsystem/cleverlights-management");
+    url_replace(modules,"wapp-","$neurovosa","https://wappsystem.github.io/neurovosa","http://127.0.0.1:8000/wappsystem/neurovosa");
+    url_replace(modules,"wapp-","$local-sleep","https://wappsystem.github.io/local-sleep","http://127.0.0.1:8000/wappsystem/local-sleep");
+    url_replace(modules,"wapp-","$sdm-ii","https://wappsystem.github.io/sdm-ii","http://127.0.0.1:8000/wappsystem/sdm-ii");
     url_replace(modules,"wapp-","$incosact-o","https://incosact-online-questionnaire.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact-online-questionnaire");
     url_replace(modules,"wapp-","$incosact-m","https://incosact.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact");
     url_replace(modules,"wapp-","$sleepfix/","http://www.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix/");
