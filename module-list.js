@@ -52,12 +52,43 @@
         "epworth-sleepiness-scale":                         {url:"$H/e/epworth-sleepiness-scale/index.html",app:1},
         "body-mass-index":                                  {url:"$H/b/body-mass-index/index.html",app:1},
         "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
-        
-                
-        
-        
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
-    url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://127.0.0.1:8000/vmiis/app-templates");
+    url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://"+window.location.hostname+":8000/vmiis/app-templates");
+    //-------------------------------------------------------------------------------------
+    var modules={
+        "astn":  		                                    {url:"$astn/index.html",app:1},
+        "spardac":  		                                {url:"$spardac/index.html",app:1},
+        "cleverlights":  		                            {url:"$cleverlights/index.html",app:1},
+        "cleverlights-recruitment":                         {url:"$cleverlights-recruitment/index.html",app:1},
+        "cleverlights-management":                          {url:"$cleverlights-management/index.html",app:1},
+        "neurovosa":  		                                {url:"$neurovosa/index.html",app:1},
+        "local-sleep":  		                            {url:"$local-sleep/index.html",app:1},     
+        "sdm-ii":  		                                    {url:"$sdm-ii/index.html",app:1},    
+        
+        
+        "incosact-online-questionnaire":                    {url:"$incosact-o/index.html",app:1},
+        "incosact-management":                              {url:"$incosact-m/index.html",app:1},
+        "sleepfix":                                         {url:"$sleepfix/index.html",app:1},
+        "sleepfix-management":                              {url:"$sleepfix-m/index.html",app:1},
+        "sleepfix-online-questionnaire":                    {url:"$sleepfix-o/index.html",app:1},      
+        
+        "backoffice":                                       {url:"$backoffice/index.html",app:1},
+    }
+    url_replace(modules,"wapp-","$astn","https://astn.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/astn");
+    url_replace(modules,"wapp-","$spardac","https://spardac.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/spardacmdb");
+    url_replace(modules,"wapp-","$cleverlights","https://wappsystem.github.io/cleverlights/index.html","http://127.0.0.1:8000/wappsystem/cleverlights");
+    url_replace(modules,"wapp-","$cleverlights-recruitment","https://wappsystem.github.io/cleverlights-recruitment/index.html","http://127.0.0.1:8000/wappsystem/cleverlights-recruitment");
+    url_replace(modules,"wapp-","$cleverlights-management","https://wappsystem.github.io/cleverlights-management/index.html","http://127.0.0.1:8000/wappsystem/cleverlights-management");
+    url_replace(modules,"wapp-","$neurovosa","https://wappsystem.github.io/neurovosa/index.html","http://127.0.0.1:8000/wappsystem/neurovosa");
+    url_replace(modules,"wapp-","$local-sleep","https://wappsystem.github.io/local-sleep/index.html","http://127.0.0.1:8000/wappsystem/local-sleep");
+    url_replace(modules,"wapp-","$sdm-ii","https://wappsystem.github.io/sdm-ii/index.html","http://127.0.0.1:8000/wappsystem/sdm-ii");
+    url_replace(modules,"wapp-","$incosact-o","https://incosact-online-questionnaire.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact-online-questionnaire");
+    url_replace(modules,"wapp-","$incosact-m","https://incosact.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact");
+    url_replace(modules,"wapp-","$sleepfix/","http://www.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix/");
+    url_replace(modules,"wapp-","$sleepfix-m/","http://management.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix-management/");
+    url_replace(modules,"wapp-","$sleepfix-o/","https://online-questionnaire.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix-online-questionnaire/");
+    
+    url_replace(modules,"wapp-","$backoffice","https://backoffice.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/backoffice");   
     //-------------------------------------------------------------------------------------
 })();
