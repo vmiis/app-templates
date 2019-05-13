@@ -52,6 +52,7 @@
         "epworth-sleepiness-scale":                         {url:"$H/e/epworth-sleepiness-scale/index.html",app:1},
         "body-mass-index":                                  {url:"$H/b/body-mass-index/index.html",app:1},
         "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
+        "facebook":                                         {url:"$H/f/facebook/index.html",app:1},
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
     url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://"+window.location.hostname+":8000/vmiis/app-templates");

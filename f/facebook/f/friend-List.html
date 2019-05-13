@@ -1,0 +1,22 @@
+<div id=D__ID>
+	<div>
+		Hello World!
+	</div>
+	<script>
+		function F__ID(){
+            $('#D__ID').on('load',function(){
+                FB.api('/me/frends', function(response) {
+                    console.log(response);
+                    alert(response)
+                });
+            })
+		}
+	</script>
+	<style>
+		#D__ID{
+			height:100%;
+			animation: vm_module_fadein 1.0s;
+            background-color: #fff;
+		}
+	</style>
+</div>
