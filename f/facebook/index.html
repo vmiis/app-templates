@@ -43,7 +43,7 @@
             "footer":	    {url:"$H/0/footer.html"},
             "news":         {url:"$M/n/news.html"},
             "control-panel":{url:"$H/c/control-panel.html",router:1},
-            "friend-List":  {url:"$H/f/friend-List.html"},           
+            "posts":        {url:"$H/p/posts.html"},           
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$M',$vm.m_path);

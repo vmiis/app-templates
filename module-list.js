@@ -57,39 +57,47 @@
     }
     url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://"+window.location.hostname+":8000/vmiis/app-templates");
     //-------------------------------------------------------------------------------------
-    var modules={
-        "astn":  		                                    {url:"$astn/index.html",app:1},
-        "spardac":  		                                {url:"$spardac/index.html",app:1},
-        "cleverlights":  		                            {url:"$cleverlights/index.html",app:1},
-        "cleverlights-recruitment":                         {url:"$cleverlights-recruitment/index.html",app:1},
-        "cleverlights-management":                          {url:"$cleverlights-management/index.html",app:1},
-        "neurovosa":  		                                {url:"$neurovosa/index.html",app:1},
-        "local-sleep":  		                            {url:"$local-sleep/index.html",app:1},     
-        "sdm-ii":  		                                    {url:"$sdm-ii/index.html",app:1},    
-        
-        
-        "incosact-online-questionnaire":                    {url:"$incosact-o/index.html",app:1},
-        "incosact-management":                              {url:"$incosact-m/index.html",app:1},
-        "sleepfix":                                         {url:"$sleepfix/index.html",app:1},
-        "sleepfix-management":                              {url:"$sleepfix-m/index.html",app:1},
-        "sleepfix-online-questionnaire":                    {url:"$sleepfix-o/index.html",app:1},      
-        
-        "backoffice":                                       {url:"$backoffice/index.html",app:1},
+    var url_replace_2=function(modules,prefix){
+        for(m in modules){
+            var $R=modules[m].web; if($vm.localhost==true) $R=modules[m].local;
+            modules[m].url=modules[m].url.replace("$H",$R); 
+            $vm.module_list[prefix+m]=modules[m]; 
+            $vm.module_list[prefix+m].prefix=prefix; 
+        } 
     }
-    url_replace(modules,"wapp-","$astn","https://astn.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/astn");
-    url_replace(modules,"wapp-","$spardac","https://spardac.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/spardacmdb");
-    url_replace(modules,"wapp-","$cleverlights","https://wappsystem.github.io/cleverlights","http://127.0.0.1:8000/wappsystem/cleverlights");
-    url_replace(modules,"wapp-","$cleverlights-recruitment","https://wappsystem.github.io/cleverlights-recruitment","http://127.0.0.1:8000/wappsystem/cleverlights-recruitment");
-    url_replace(modules,"wapp-","$cleverlights-management","https://wappsystem.github.io/cleverlights-management","http://127.0.0.1:8000/wappsystem/cleverlights-management");
-    url_replace(modules,"wapp-","$neurovosa","https://wappsystem.github.io/neurovosa","http://127.0.0.1:8000/wappsystem/neurovosa");
-    url_replace(modules,"wapp-","$local-sleep","https://wappsystem.github.io/local-sleep","http://127.0.0.1:8000/wappsystem/local-sleep");
-    url_replace(modules,"wapp-","$sdm-ii","https://wappsystem.github.io/sdm-ii","http://127.0.0.1:8000/wappsystem/sdm-ii");
-    url_replace(modules,"wapp-","$incosact-o","https://incosact-online-questionnaire.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact-online-questionnaire");
-    url_replace(modules,"wapp-","$incosact-m","https://incosact.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/incosact");
-    url_replace(modules,"wapp-","$sleepfix/","http://www.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix/");
-    url_replace(modules,"wapp-","$sleepfix-m/","http://management.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix-management/");
-    url_replace(modules,"wapp-","$sleepfix-o/","https://online-questionnaire.sfix.com.au/","http://127.0.0.1:8000/wappsystem/sleepfix-online-questionnaire/");
-    
-    url_replace(modules,"wapp-","$backoffice","https://backoffice.wappsystem.com.au","http://127.0.0.1:8000/wappsystem/backoffice");   
+    //-------------------------------------------------------------------------------------
+    var modules={
+        "astn":                             {url:"$H/index.html",app:1, web:"https://astn.wappsystem.com.au",                           local:"http://127.0.0.1:8000/wappsystem/astn"},
+        "spardac":  		                {url:"$H/index.html",app:1, web:"https://spardac.wappsystem.com.au",                        local:"http://127.0.0.1:8000/wappsystem/spardacmdb"},
+        "cleverlights":  		            {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/cleverlights",                local:"http://127.0.0.1:8000/wappsystem/cleverlights"},
+        "cleverlights-recruitment":         {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/cleverlights-recruitment",    local:"http://127.0.0.1:8000/wappsystem/cleverlights-recruitment"},
+        "cleverlights-management":          {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/cleverlights-management",     local:"http://127.0.0.1:8000/wappsystem/cleverlights-management"},       
+        "neurovosa":  		                {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/neurovosa",                   local:"http://127.0.0.1:8000/wappsystem/neurovosa"},       
+        "local-sleep":  		            {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/local-sleep",                 local:"http://127.0.0.1:8000/wappsystem/local-sleep"},
+        "sdm-ii":  		                    {url:"$H/index.html",app:1, web:"https://wappsystem.github.io/sdm-ii",                      local:"http://127.0.0.1:8000/wappsystem/sdm-ii"},
+        "incosact-online-questionnaire":    {url:"$H/index.html",app:1, web:"https://incosact-online-questionnaire.wappsystem.com.au",  local:"http://127.0.0.1:8000/wappsystem/incosact-online-questionnaire"},      
+        "incosact-management":              {url:"$H/index.html",app:1, web:"https://incosact.wappsystem.com.au",                       local:"http://127.0.0.1:8000/wappsystem/incosact"},       
+        "sleepfix":                         {url:"$H/index.html",app:1, web:"http://www.sfix.com.au",                                   local:"http://127.0.0.1:8000/wappsystem/sleepfix"},
+        "sleepfix-management":              {url:"$H/index.html",app:1, web:"http://management.sfix.com.au",                            local:"http://127.0.0.1:8000/wappsystem/sleepfix-management"},
+        "sleepfix-online-questionnaire":    {url:"$H/index.html",app:1, web:"https://online-questionnaire.sfix.com.au",                 local:"http://127.0.0.1:8000/wappsystem/sleepfix-online-questionnaire"},
+        
+        "backoffice":                       {url:"$H/index.html",app:1, web:"https://backoffice.wappsystem.com.au",                     local:"http://127.0.0.1:8000/wappsystem/backoffice"},
+    }
+    url_replace_2(modules,"wapp-");   
+    //-------------------------------------------------------------------------------------
+    var modules={
+        "biomarkers-ii":                        {url:"$H/index.html",app:1, web:"https://biomarkers-ii.rt.org.au",                          local:"http://127.0.0.1:8000/woolcock-imr/biomarkers-ii"},
+        "biomarkers-ii-online-questionnaire":   {url:"$H/index.html",app:1, web:"https://biomarkers-ii-online-questionnaire.rt.org.au",     local:"http://127.0.0.1:8000/woolcock-imr/biomarkers-ii-online-questionnaire"},
+        "flat":                             {url:"$H/index.html",app:1, web:"https://flat.rt.org.au",                                   local:"http://127.0.0.1:8000/woolcock-imr/flat-3"},
+        "flat-online-questionnaire":        {url:"$H/index.html",app:1, web:"https://flat-online-questionnaire.rt.org.au",              local:"http://127.0.0.1:8000/woolcock-imr/flat-3-online-questionnaire"},
+        "flat-trial-registration":          {url:"$H/index.html",app:1, web:"https://woolcock-imr.github.io/flat-trial-registration",  local:"http://127.0.0.1:8000/woolcock-imr/flat-trial-registration"},
+        "windfarm-website":                 {url:"$H/index.html",app:1, web:"https://www.windfarmstudy.com",                            local:"http://127.0.0.1:8000/woolcock-imr/windfarm-website"},
+        "windfarm-lab-management":          {url:"$H/index.html",app:1, web:"https://windfarm-lab-management.rt.org.au",                local:"http://127.0.0.1:8000/woolcock-imr/windfarm-lab-management"},
+        "cansleep":                         {url:"$H/index.html",app:1, web:"https://cansleep.rt.org.au",                               local:"http://127.0.0.1:8000/woolcock-imr/cansleep"},
+        "cansleep-online-questionnaire":    {url:"$H/index.html",app:1, web:"https://cansleep-online-questionnaire.rt.org.au",          local:"http://127.0.0.1:8000/woolcock-imr/cansleep-online-questionnaire"},
+        "nightstudy":                       {url:"$H/index.html",app:1, web:"https://woolcock-imr.github.io/nightstudy",                local:"http://127.0.0.1:8000/woolcock-imr/nightstudy"},
+        "volunteer-database":               {url:"$H/index.html",app:1, web:"https://volunteer-database.rt.org.au",                     local:"http://127.0.0.1:8000/woolcock-imr/volunteer-database-2"},
+    }
+    url_replace_2(modules,"wkapp-");   
     //-------------------------------------------------------------------------------------
 })();
