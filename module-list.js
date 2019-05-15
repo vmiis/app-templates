@@ -52,6 +52,7 @@
         "epworth-sleepiness-scale":                         {url:"$H/e/epworth-sleepiness-scale/index.html",app:1},
         "body-mass-index":                                  {url:"$H/b/body-mass-index/index.html",app:1},
         "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
+        "linkedin":                                         {url:"$H/l/linkedin/index.html",app:1},
         "facebook":                                         {url:"$H/f/facebook/index.html",app:1},
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
