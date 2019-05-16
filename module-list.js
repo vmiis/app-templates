@@ -48,12 +48,14 @@
         "white":                                            {url:"$H/w/white/index.html",app:1},
         "hotel":                                            {url:"$H/h/hotel/index.html",app:1},
         "word-pair-association":                            {url:"$H/w/word-pair-association/index.html",app:1},
-        "vmiis-365":                                        {url:"$H/v/vmiis-365/index.html",app:1},
+        //"vmiis-365":                                        {url:"$H/v/vmiis-365/index.html",app:1},
         "epworth-sleepiness-scale":                         {url:"$H/e/epworth-sleepiness-scale/index.html",app:1},
         "body-mass-index":                                  {url:"$H/b/body-mass-index/index.html",app:1},
         "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
         "linkedin":                                         {url:"$H/l/linkedin/index.html",app:1},
         "facebook":                                         {url:"$H/f/facebook/index.html",app:1},
+        "microsoft-365":                                    {url:"$H/m/microsoft-365/index.html",app:1},
+        
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
     url_replace(modules,"app-","$H","https://app-templates.vmiis.com/","http://"+window.location.hostname+":8000/vmiis/app-templates");
