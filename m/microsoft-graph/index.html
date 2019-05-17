@@ -42,14 +42,18 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
+            "panel":        {url:"$H/p/panel.html"},
+            "vm365-contact-list-data":   	{url:"$H/v/vm365-contact-list-data.html",Table:"contact_list",form_module:"vm365-contact-list-form"},
+            "vm365-contact-list-form":   	{url:"$H/v/vm365-contact-list-form.html",Table:"contact_list"},
+            
+            /*
             "vm365-panel":                  {url:"$M/v/vm365-home.html"},
             "vm365-entity-data":   	        {url:"$M/v/vm365-entity-data.html",Table:"EntityDefinitions",form_module:"vm365-entity-form"},
             "vm365-entity-form":   	        {url:"$M/v/vm365-entity-form.html",Table:"EntityDefinitions"},
             "vm365-table1-data":   	        {url:"$M/v/vm365-table1-data.html",Table:"new_table1s",form_module:"vm365-table1-form"},
             "vm365-table1-form":   	        {url:"$M/v/vm365-table1-form.html",Table:"new_table1s"},
             "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
-            "vm365-contact-list-data":   	{url:"$M/v/vm365-contact-list-data.html",Table:"contact_list",form_module:"vm365-contact-list-form"},
-            "vm365-contact-list-form":   	{url:"$M/v/vm365-contact-list-form.html",Table:"contact_list"},
+            */
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$M',$vm.m_path);
@@ -69,11 +73,12 @@
         }
         //------------------------------------
         $vm.m365_scope={
-            scopes: ["user.read"]
+            scopes: ["user.read","Files.Read.All","Sites.ReadWrite.All"]
         };
         $vm.msalConfig={
             auth: {
-                clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
+                clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a'
+                //clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
                 //authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
             },
             cache: {
@@ -82,6 +87,7 @@
             }
         };
         $vm.m365_init=function(){
+            //$vm.m365.sharepointURI="https://vmiis.sharepoint.com";
             var myMSALObj =$vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
             $vm.m365_signin=function (){
                 $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
