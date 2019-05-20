@@ -42,9 +42,9 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
-            "panel":        {url:"$H/p/panel.html"},
-            "vm365-contact-list-data":   	{url:"$H/v/vm365-contact-list-data.html",Table:"contact_list",form_module:"vm365-contact-list-form"},
-            "vm365-contact-list-form":   	{url:"$H/v/vm365-contact-list-form.html",Table:"contact_list"},
+            "control-panel":        {url:"$H/c/control-panel.html",router:1},
+            "me":   	            {url:"$H/m/me.html"},
+            "staff-directory":   	{url:"$H/s/staff-directory.html"},
             
             /*
             "vm365-panel":                  {url:"$M/v/vm365-home.html"},
@@ -87,8 +87,7 @@
             }
         };
         $vm.m365_init=function(){
-            //$vm.m365.sharepointURI="https://vmiis.sharepoint.com";
-            var myMSALObj =$vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
+            $vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
             $vm.m365_signin=function (){
                 $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
                     if($vm.m365_msal.getAccount()!=undefined){
@@ -104,12 +103,27 @@
             }
             if($vm.m365_msal.getAccount()!=undefined){
                 $vm.m365_user_name=$vm.m365_msal.getAccount().userName;
-                return;
+                //return;
             }
+            $vm.m365_graph=function(url,callback){
+                $vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
+                    var xmlHttp = new XMLHttpRequest();
+                    var mt1=new Date().getTime();
+                    xmlHttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200){
+                            $("#_sys_dev_info_elapsed").html( (this.response.length/1000).toFixed(1)+"kb/"+(new Date().getTime()-mt1).toString()+"ms");
+                            var data=JSON.parse(this.responseText);
+                            callback(data);
+                        }
+                    }
+                    xmlHttp.open("GET", url, true); // true for asynchronous
+                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + tokenResponse.accessToken);
+                    xmlHttp.send();
+                }).catch(function (error){console.log(error);});
+            };
         }
         $vm.m365_init();
         //-------------------------------------
-
 
         
         //------------------------------------

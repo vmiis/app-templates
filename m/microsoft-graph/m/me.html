@@ -1,0 +1,34 @@
+<div id=D__ID>
+    <div id=info__ID>
+        <br>DisplayName: <span id=displayName__ID></span>
+        <br>GivenName: <span id=givenName__ID></span>
+        <br>Surname: <span id=surname__ID></span>
+        <br>Mail: <span id=mail__ID></span>
+	</div>
+	<script>
+		function F__ID(){
+			$('#D__ID').on('load',function(){
+				$vm.m365_graph("https://graph.microsoft.com/v1.0/me/",function(data){
+                    console.log(data)
+                    $('#displayName__ID').text(data.displayName);
+                    $('#givenName__ID').text(data.givenName);
+                    $('#surname__ID').text(data.surname);
+                    $('#mail__ID').text(data.mail);
+				})
+			})
+		}
+	</script>
+	<style>
+		#D__ID{
+			height:100%;
+			animation: vm_module_fadein 1.0s;
+			background-color: #fff;
+		}
+        #info__ID{
+            padding:30px;
+        }
+        #info__ID span{
+            font-weight: bold;
+        }
+	</style>
+</div>
