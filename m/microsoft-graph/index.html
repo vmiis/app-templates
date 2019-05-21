@@ -42,9 +42,13 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
-            "control-panel":        {url:"$H/c/control-panel.html",router:1},
-            "me":   	            {url:"$H/m/me.html"},
-            "staff-directory":   	{url:"$H/s/staff-directory.html"},
+            "control-panel":            {url:"$H/c/control-panel.html",router:1},
+            "me":   	                {url:"$H/m/me.html"},
+            "users":   	                {url:"$H/u/users.html"},
+            "sharepoint-list":   	    {url:"$H/s/sharepoint-list.html"},
+            "sharepoint-list-column":   {url:"$H/s/sharepoint-list-column.html"},
+            "sharepoint-list-item":     {url:"$H/s/sharepoint-list-item.html"},
+            "sharepoint-site":          {url:"$H/s/sharepoint-site.html"},
             
             /*
             "vm365-panel":                  {url:"$M/v/vm365-home.html"},
@@ -73,7 +77,7 @@
         }
         //------------------------------------
         $vm.m365_scope={
-            scopes: ["user.read","Files.Read.All","Sites.ReadWrite.All"]
+            scopes: ["user.read","user.read.all","Files.Read.All","Sites.ReadWrite.All"]
         };
         $vm.msalConfig={
             auth: {
@@ -121,6 +125,15 @@
                     xmlHttp.send();
                 }).catch(function (error){console.log(error);});
             };
+            //------------------------------------
+            $vm.show_json_data=function(D){
+                var txt=JSON.stringify(D, null, '\t');
+                txt=txt.replace(/\n/g,"<br>");
+                txt=txt.replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+                var win=window.open("","JSON data");
+                win.document.body.innerHTML=txt+"<title>JSON data</title><style> body{ font-family:Courier New;font-size:12px; white-space: nowrap; } </style>";
+            }
+            //------------------------------------
         }
         $vm.m365_init();
         //-------------------------------------

@@ -1,0 +1,57 @@
+<div id=D__ID>
+    <button id=json__ID type=button class="btn btn-secondary" style='margin:15px 0 0 15px'>JSON data</button>
+	<h3 style='margin:15px 0 0 30px'>Sharepoint list items</h3>
+    <div id=info__ID>
+	</div>
+	<script>
+		function F__ID(){
+            var D="";
+            var m=$vm.module_list["__MODULE__"];
+			$('#D__ID').on('load',function(){
+                var rid=m.input.rid;
+				$vm.m365_graph("https://graph.microsoft.com/v1.0/sites/root/lists/"+rid+"/items?expand=fields",function(data){
+                    D=data;
+					$('#info__ID').html('');
+					var txt="<table>";
+					txt+="<tr><th>id</th><th>createdDateTime</th><th>createdBy</th><th>Other Fields</th></tr>";
+					for(i in data.value){
+                        txt+="<tr>";
+                        txt+="<td>"+data.value[i].id+"</td>";
+                        txt+="<td>"+data.value[i].createdDateTime+"</td>";
+                        txt+="<td>"+data.value[i].createdBy.user.displayName+"</td>";
+                        txt+="<td><u i="+i+" style='cursor:pointer'>Other Fields</u></td>";
+                        txt+="</tr>";
+					}
+					txt+="</table>"
+					$('#info__ID').html(txt);
+                    $('#D__ID u').on('click',function(){
+                        //alert()
+                        var i=parseInt($(this).attr('i'));
+                        $vm.show_json_data(D.value[i].fields);
+                    })
+                })
+            })
+            //------------------------------------
+            $('#json__ID').on('click',function(){
+                $vm.show_json_data(D);
+            })
+            //------------------------------------
+		}
+	</script>
+	<style>
+		#D__ID{
+			height:100%;
+			animation: vm_module_fadein 1.0s;
+			background-color: #fff;
+		}
+        #info__ID{
+            padding:10px 0 0 30px;
+        }
+        #info__ID span{
+            font-weight: bold;
+        }
+		#D__ID td{
+			padding-right:20px;
+		}
+	</style>
+</div>

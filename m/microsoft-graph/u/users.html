@@ -4,17 +4,16 @@
 	</div>
 	<script>
 		function F__ID(){
-            var D="";
-            //------------------------------------
+			var D="";
 			$('#D__ID').on('load',function(){
-				$vm.m365_graph("https://graph.microsoft.com/v1.0/me/",function(data){
-                    D=data;
+				$vm.m365_graph("https://graph.microsoft.com/v1.0/users?$select=displayName,mail",function(data){
+					D=data;
 					$('#info__ID').html('');
 					var txt="<table>";
-						txt+="<tr><td>Display Name</td><td><b>"+data.displayName+"</b></td></tr>";
-						txt+="<tr><td>Given Name</td><td><b>"+data.givenName+"</b></td></tr>";
-						txt+="<tr><td>Surname</td><td><b>"+data.surname+"</b></td></tr>";
-						txt+="<tr><td>Email</td><td><b>"+data.mail+"</b></td></tr>";
+					txt+="<tr><th>Display name</th><th>Mail</th></tr>";
+					for(i in data.value){
+						txt+="<tr><td>"+data.value[i].displayName+"</td><td> "+data.value[i].mail+"</td></tr>";
+					}
 					txt+="</table>"
 					$('#info__ID').html(txt);
 				})
@@ -24,8 +23,7 @@
                 $vm.show_json_data(D);
             })
             //------------------------------------
-        }
-        
+		}
 	</script>
 	<style>
 		#D__ID{
