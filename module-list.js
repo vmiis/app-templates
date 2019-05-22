@@ -54,7 +54,7 @@
         "unemployment":                                     {url:"$H/u/unemployment/index.html",app:1},
         "linkedin":                                         {url:"$H/l/linkedin/index.html",app:1},
         "facebook":                                         {url:"$H/f/facebook/index.html",app:1},
-        "microsoft-365":                                    {url:"$H/m/microsoft-365/index.html",app:1},
+        "microsoft-365":                                    {url:"$H/m/microsoft-graph/index.html",app:1},
         
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
