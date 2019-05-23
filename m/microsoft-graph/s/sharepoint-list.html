@@ -1,15 +1,19 @@
 <div id=D__ID>
 	<button id=json__ID type=button class="btn btn-secondary" style='margin:15px 0 0 15px'>JSON data</button> 
-	<h3 style='margin:15px 0 0 30px'>Sharepoint list</h3>
+	<h3 style='margin:15px 0 0 30px'>Sharepoint site (<span id=site_name__ID></span>) list</h3>
     <div id=info__ID>
 	</div>
 	<script>
 		function F__ID(){
+            var m=$vm.module_list["__MODULE__"];
 			var D="";
 			$('#D__ID').on('load',function(){
-				$vm.m365_graph("https://graph.microsoft.com/v1.0/sites/root/lists",function(data){
+				$('#info__ID').html('');
+				$('#site_name__ID').text(m.input.site_name)
+				var g_id="";
+				if(m.input.group_id!=undefined) g_id=m.input.group_id;
+				$vm.m365_graph("https://graph.microsoft.com/v1.0/sites/"+m.input.site_id+"/lists",function(data){
 					D=data;
-					$('#info__ID').html('');
 					var txt="<table>";
 					txt+="<tr><th>Name</th><th>createdBy</th><th>createdDateTime</th><th>Columns</th><th>Items</th></tr>";
 					for(i in data.value){
@@ -21,8 +25,8 @@
 					txt+="</table>"
 					$('#info__ID').html(txt);
                     $('#D__ID u').on('click',function(){
-						var m=$(this).attr("m");
-						$vm.load_module(m,'',{rid:$(this).attr('rid')})
+						var md=$(this).attr("m");
+						$vm.load_module(md,'',{rid:$(this).attr('rid'),group_id:g_id})
                     })
 				})
 			})

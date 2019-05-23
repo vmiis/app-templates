@@ -42,13 +42,23 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
-            "control-panel":            {url:"$H/c/control-panel.html",router:1},
+            "control-panel-main":            {url:"$H/c/control-panel-main.html",router:1},
+            "control-panel-site":            {url:"$H/c/control-panel-site.html",router:1},
             "me":   	                {url:"$H/m/me.html"},
             "users":   	                {url:"$H/u/users.html"},
+            "groups":   	            {url:"$H/g/groups.html"},
+            "sharepoint-site":                  {url:"$H/s/sharepoint-site.html"},
             "sharepoint-list":   	    {url:"$H/s/sharepoint-list.html"},
             "sharepoint-list-column":   {url:"$H/s/sharepoint-list-column.html"},
             "sharepoint-list-item":     {url:"$H/s/sharepoint-list-item.html"},
-            "sharepoint-site":          {url:"$H/s/sharepoint-site.html"},
+            
+            "participant-data":   	    {url:"$H/p/participant-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items", form_module:"participant-form"},
+            "participant-form":   	    {url:"$H/p/participant-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items"},
+
+            "employee-appointment-data":   	    {url:"$H/e/employee-appointment-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items", form_module:"employee-appointment-form"},
+            "employee-appointment-form":   	    {url:"$H/e/employee-appointment-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items"},
+
+            //"sharepoint-site-content-list":     {url:"$H/s/sharepoint-site-content-list.html"},
             
             /*
             "vm365-panel":                  {url:"$M/v/vm365-home.html"},
@@ -58,6 +68,8 @@
             "vm365-table1-form":   	        {url:"$M/v/vm365-table1-form.html",Table:"new_table1s"},
             "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
             */
+            "about-vmiis":    			            {url:"$M/a/about-vmiis.html",router:1},
+
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$M',$vm.m_path);
@@ -65,7 +77,7 @@
         //all other modules, used on demand 
         $vm.app_modules=[
             //you can add a js file that will add mmodules to the $vm.module_list
-            "$M/module-list.js",
+            //"$M/module-list.js",
         ]
         for(i in $vm.app_modules) $vm.app_modules[i]=$vm.app_modules[i].replace('$M',$vm.m_path);
         //------------------------------------
@@ -77,7 +89,7 @@
         }
         //------------------------------------
         $vm.m365_scope={
-            scopes: ["user.read","user.read.all","Files.Read.All","Sites.ReadWrite.All"]
+            scopes: ["user.read","user.read.all","group.read.all","Files.Read.All","Sites.ReadWrite.All"]
         };
         $vm.msalConfig={
             auth: {
