@@ -14,13 +14,13 @@
 				$vm.m365_graph("https://graph.microsoft.com/v1.0/"+g_id+"sites/root/lists/"+rid+"/items?expand=fields",function(data){
                     D=data;
 					var txt="<table>";
-					txt+="<tr><th>id</th><th>createdDateTime</th><th>createdBy</th><th>Other Fields</th></tr>";
+					txt+="<tr><th>id</th><th>createdDateTime</th><th>createdBy</th><th>Contents</th></tr>";
 					for(i in data.value){
                         txt+="<tr>";
                         txt+="<td>"+data.value[i].id+"</td>";
                         txt+="<td>"+data.value[i].createdDateTime+"</td>";
                         txt+="<td>"+data.value[i].createdBy.user.displayName+"</td>";
-                        txt+="<td><u i="+i+" style='cursor:pointer'>Other Fields</u></td>";
+                        txt+="<td><u i="+i+" style='cursor:pointer'>Contents</u></td>";
                         txt+="</tr>";
 					}
 					txt+="</table>"

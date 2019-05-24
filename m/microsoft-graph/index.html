@@ -89,7 +89,7 @@
         }
         //------------------------------------
         $vm.m365_scope={
-            scopes: ["user.read","user.read.all","group.read.all","Files.Read.All","Sites.ReadWrite.All"]
+            scopes: ["user.read"/*,"user.read.all","group.read.all"*/,"Files.Read.All","Sites.ReadWrite.All"]
         };
         $vm.msalConfig={
             auth: {
@@ -130,6 +130,10 @@
                             $("#_sys_dev_info_elapsed").html( (this.response.length/1000).toFixed(1)+"kb/"+(new Date().getTime()-mt1).toString()+"ms");
                             var data=JSON.parse(this.responseText);
                             callback(data);
+                        }
+                        else if(this.readyState == 4 && this.status == 403){
+                            $vm.alert("No permission");
+                            callback({});
                         }
                     }
                     xmlHttp.open("GET", url, true); // true for asynchronous

@@ -21,7 +21,7 @@
         "room-booking":                 {url:"$H/r/room-booking/index.html",app:1},
         "car-booking":                  {url:"$H/c/car-booking/index.html",app:1},
         "equipment-booking":            {url:"$H/e/equipment-booking/index.html",app:1},
-        "clever-lights":                {url:"$H/c/clever-lights/index.html",app:1},
+        //"clever-lights":                {url:"$H/c/clever-lights/index.html",app:1},
         "nasa-background":              {url:"$H/n/nasa-background/index.html",app:1},
         "bubble-background":            {url:"$H/b/bubble-background/index.html",app:1},
         "snow-background":              {url:"$H/s/snow-background/index.html",app:1},
