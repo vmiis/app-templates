@@ -23,7 +23,10 @@
         $vm.debug=1;
         //------------------------------------
         //setup modules location
-        $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
+        $vm.hosting_path0=window.location.href.split('#')[0];
+        $vm.hosting_path=$vm.hosting_path0.substring(0, $vm.hosting_path0.split('?')[0].lastIndexOf('/'));
+        
+        //$vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
         if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-templates.vmiis.com/e/enquiry";
         if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
         $vm.m_path='https://modules.vmiis.com'; if($vm.localhost==true) $vm.m_path='http://'+window.location.hostname+':8000/vmiis/modules'; 
@@ -89,12 +92,12 @@
         }
         //------------------------------------
         $vm.m365_scope={
-            scopes: ["user.read"/*,"user.read.all","group.read.all"*/,"Files.Read.All","Sites.ReadWrite.All"]
+            scopes: ["user.read"/*,"user.read.all","group.read.all","Files.Read.All","Sites.ReadWrite.All"*/]
         };
         $vm.msalConfig={
             auth: {
-                //clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a'
-                clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
+                clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a',
+                //clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
                 //authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
             },
             cache: {
@@ -104,6 +107,10 @@
         };
         $vm.m365_init=function(){
             $vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
+            $vm.m365_msal.handleRedirectCallback((error, response) => {
+                // handle redirect response or error
+                console.log(error);
+            });            
             $vm.m365_signin=function (){
                 $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
                     if($vm.m365_msal.getAccount()!=undefined){
@@ -117,10 +124,6 @@
             $vm.m365_signout=function() {
                 $vm.m365_msal.logout();
             }
-            if($vm.m365_msal.getAccount()!=undefined){
-                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;
-                //return;
-            }
             $vm.m365_graph=function(url,callback){
                 $vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
                     var xmlHttp = new XMLHttpRequest();
@@ -133,6 +136,10 @@
                         }
                         else if(this.readyState == 4 && this.status == 403){
                             $vm.alert("No permission");
+                            callback({});
+                        }
+                        if(this.status == 404){
+                            $vm.alert(url+", 404 (Not found)");
                             callback({});
                         }
                     }
@@ -150,11 +157,14 @@
                 win.document.body.innerHTML=txt+"<title>JSON data</title><style> body{ font-family:Courier New;font-size:12px; white-space: nowrap; } </style>";
             }
             //------------------------------------
+            if($vm.m365_msal.getAccount()!=undefined){
+                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;             
+            }
         }
+        console.log(window.location.href);
         $vm.m365_init();
         //-------------------------------------
 
-        
         //------------------------------------
         //Do not need to chang the following code in most cases
         //The following code will load a framework module and on demand module list
