@@ -1,22 +1,18 @@
 <div id=D__ID>
 	<div id=page_1__ID class=home_page_1>
-		<div class="panel__ID" >
-			<p style='font-size:16px;line-height:26px;'> 
-				LinkedIn is a professional social network for people to connect with colleagues and business associates.
-			</p>
-			<p class=text-center>
-				<a id=enter__ID class='btn btn-success' >Enter</a>
+		<div class="panel__ID text-center" >
+			<p class=>Welcome to Microsoft 365</p>
+			<h1>Cloud Offce</h1>
+			<p>
+				<a id=get_in__ID class='btn btn-success' >Enter</a>
 			</p>
 		</div>
 	</div>
-	<div id=news__ID>
-	</div>
 	<script>
-		$vm.load_component('news','news__ID',{topic:"Unemployment",rss:"https://news.google.com/rss/search?q=unemployment&hl=en-AU&gl=AU&ceid=AU%3Aen"})
 		$('#D__ID').on('load',function(){
-			$('#enter__ID').on('click',function(){
-				$vm.load_module("control-panel",'',{})
-			})
+		})
+		$('#get_in__ID').on('click',function(){
+			$vm.load_module("control-panel-main",'',{})
 		})
 	</script>
 	<style>
@@ -44,7 +40,6 @@
             border-radius: 25px;
             padding:30px 50px 20px 50px;
 			margin:0 auto 130px auto;
-			max-width:800px;
         }
 		@keyframes D__ID {
 			from {padding-top: 300px;}

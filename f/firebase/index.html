@@ -15,7 +15,11 @@
         <div id=footer></div>
         <div id=system></div>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-firestore.js"></script>
+
     </body>
     <script boot-up>
         //------------------------------------
@@ -60,17 +64,6 @@
 
             "employee-appointment-data":   	    {url:"$H/e/employee-appointment-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items", form_module:"employee-appointment-form"},
             "employee-appointment-form":   	    {url:"$H/e/employee-appointment-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items"},
-
-            //"sharepoint-site-content-list":     {url:"$H/s/sharepoint-site-content-list.html"},
-            
-            /*
-            "vm365-panel":                  {url:"$M/v/vm365-home.html"},
-            "vm365-entity-data":   	        {url:"$M/v/vm365-entity-data.html",Table:"EntityDefinitions",form_module:"vm365-entity-form"},
-            "vm365-entity-form":   	        {url:"$M/v/vm365-entity-form.html",Table:"EntityDefinitions"},
-            "vm365-table1-data":   	        {url:"$M/v/vm365-table1-data.html",Table:"new_table1s",form_module:"vm365-table1-form"},
-            "vm365-table1-form":   	        {url:"$M/v/vm365-table1-form.html",Table:"new_table1s"},
-            "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
-            */
             "about-vmiis":    			            {url:"$M/a/about-vmiis.html",router:1},
 
         };
@@ -91,91 +84,51 @@
             $vm.load_component('app',$vm.root_layout_system,{});
         }
         //------------------------------------
-        $vm.m365_init=function(){
-            $vm.m365_scope={
-                scopes: ["user.read","User.ReadBasic.All",/*"group.read.all",*/"Files.Read.All","Sites.ReadWrite.All"]
-            };
-            $vm.msalConfig={
-                auth: {
-                    clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a',
-                    //clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
-                    //authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
-                },
-                cache: {
-                    cacheLocation: "localStorage",
-                    storeAuthStateInCookie: true
-                }
-            };
-            $vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
-            $vm.m365_signin=function (){
-                var signinWin=window.open("signin.html","SignIn", "width=972,height=660");
-                var e=0;
-                var loop_2=setInterval(function (){
-                    if (signinWin.closed) {
-                        clearInterval(loop_2);
-                    } 
-                    try{
-                        var l=signinWin.location.length;   console.log(l)
-                        var a=signinWin.location.href;     console.log(a)
-                        if(a.split('#').length>1){
-                            e=2;
-                        }
-                    }
-                    catch(e){
-                    }
-                    if(e==2){
-                        if(signinWin.location.href!=undefined){
-                            signinWin.close();
-                            clearInterval(loop_2);
-                            if($vm.m365_msal.getAccount()!=null){
-                                $vm.user_name=$vm.m365_msal.getAccount().userName;
-                                $vm.show_user();
-                            }
-                        }
-                    }
-                },1000);
-            }
-            $vm.m365_signout=function() {
-                $vm.m365_msal.logout();
-            }
-            $vm.m365_graph=function(url,callback){
-                $vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
-                    var xmlHttp = new XMLHttpRequest();
-                    var mt1=new Date().getTime();
-                    xmlHttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200){
-                            $("#_sys_dev_info_elapsed").html( (this.response.length/1000).toFixed(1)+"kb/"+(new Date().getTime()-mt1).toString()+"ms");
-                            var data=JSON.parse(this.responseText);
-                            callback(data);
-                        }
-                        else if(this.readyState == 4 && this.status == 403){
-                            $vm.alert("No permission");
-                            callback({});
-                        }
-                        if(this.status == 404){
-                            $vm.alert(url+", 404 (Not found)");
-                            callback({});
-                        }
-                    }
-                    xmlHttp.open("GET", url, true); // true for asynchronous
-                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + tokenResponse.accessToken);
-                    xmlHttp.send();
-                }).catch(function (error){console.log(error);});
-            };
-            //------------------------------------
-            $vm.show_json_data=function(D){
-                var txt=JSON.stringify(D, null, '\t');
-                txt=txt.replace(/\n/g,"<br>");
-                txt=txt.replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
-                var win=window.open("","JSON data");
-                win.document.body.innerHTML=txt+"<title>JSON data</title><style> body{ font-family:Courier New;font-size:12px; white-space: nowrap; } </style>";
-            }
-            //------------------------------------
-            if($vm.m365_msal.getAccount()!=undefined){
-                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;             
+        $vm.firebase_init=function(){
+            var firebaseConfig = {
+                apiKey: "AIzaSyAf8cO6hljobePOH3yOlD910cIhsIpVPgQ",
+                authDomain: "flirbase.firebaseapp.com",
+                databaseURL: "https://flirbase.firebaseio.com",
+                projectId: "flirbase",
+                storageBucket: "flirbase.appspot.com",
+                //messagingSenderId: "sender-id",
+                //appID: "app-id",
+            };            
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            
+            
+            /*
+            var db = firebase.firestore();
+            
+            db.collection("Clients").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.data());
+                });
+            });
+            */
+
+            $vm.firebase_signin=function (){
+                var provider = new firebase.auth.GoogleAuthProvider();            
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                }).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
             }
         }
-        $vm.m365_init();
+        $vm.firebase_init();
         //-------------------------------------
 
         //------------------------------------
