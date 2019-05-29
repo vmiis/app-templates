@@ -42,15 +42,21 @@
                     $('#D'+$vm.active_id).css('overflow-x','auto');
                 }
                 if(m_name=='home') $('#D'+$vm.active_id+">div.home_page_1").css('height',$vm.min_height+"px");
-                if(m_name=='home') $("#header").css("background","rgba(0,0,0,0)");
-                else $("#header").css("background","rgba(0,0,0,0.5)");
+                if(m_name=='home'){ 
+                    $("#header").css("background","rgba(0,0,0,0)"); $('#top_right_corner_0').css('color','#888');
+                    document.documentElement.style.setProperty('--menu-color', '#888');
+                }
+                else{ 
+                    $("#header").css("background","rgba(0,0,0,0.5)"); $('#top_right_corner_0').css('color','#fff');
+                    document.documentElement.style.setProperty('--menu-color', '#fff');
+                }
             }
             //------------------------------------
             window.onresize=function(){set_layout();}
             //------------------------------------
             $vm.init(function(){
                 $vm.init_status=1;
-                if($vm.m365_user_name!=undefined) $vm.user_name=$vm.m365_user_name;
+                if($vm.firebase_user_name!=undefined) $vm.user_name=$vm.firebase_user_name;
                 $vm.show_user();
             })
             //------------------------------------
@@ -82,7 +88,7 @@
     <style main-style>
         html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
         body{background-size: cover; background-repeat: repeat-x; background-position: center top; background-attachment: fixed;}
-        .body_background_default{ background-image: url(https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);}
+        .body_background_default{ background-image: url(https://images.unsplash.com/photo-1552336658-762c1b1d9d4b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);}
         /*
         body:before {
             background: #fff;

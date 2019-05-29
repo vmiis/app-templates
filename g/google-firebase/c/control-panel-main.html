@@ -1,26 +1,22 @@
 <div id=D__ID>
     <div id=panel__ID>
     	<div class='nav__ID'>
-            <span>Microsoft 365 Site (<span id=site_name__ID></span>)</span>
+            <span>Firebase</span>
             <ul>
-                <li><a href=?/sharepoint-list>Sharepoint List</a></li>
-            </ul>
+                <li><a href=?/me>Me</a></li>
+                <li><a href=?/client-data>Clients</a></li>
+            </ul>           
         </div>
     </div>
     <script>
         function F__ID(){
             //--------------------------------------------------------
-            var m=$vm.module_list["__MODULE__"];
             $vm.module_list["__MODULE__"].show=function(){
                 document.title="Panel | "+$vm.default_title;
                 $("meta[name='description']").attr("content","Control Panel");
             }
             //--------------------------------------------------------
             var this_module=$vm.module_list[$vm.vm['__ID'].name];
-            //--------------------------------------------------------
-            $('#D__ID').on('load',function(){
-                var site_name=m.input.site_name;
-            })
             //--------------------------------------------------------
             $('#panel__ID a').on('click',function(e){
                 e.preventDefault();

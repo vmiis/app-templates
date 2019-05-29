@@ -32,7 +32,7 @@
         
         //$vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
         if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-templates.vmiis.com/e/enquiry";
-        if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
+        if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost' || window.location.hostname=='vmiis-local.com') $vm.localhost=true;
         $vm.m_path='https://modules.vmiis.com'; if($vm.localhost==true) $vm.m_path='http://'+window.location.hostname+':8000/vmiis/modules'; 
         //------------------------------------
         //where are your start modules
@@ -49,22 +49,11 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
-            "control-panel-main":            {url:"$H/c/control-panel-main.html",router:1},
-            "control-panel-site":            {url:"$H/c/control-panel-site.html",router:1},
-            "me":   	                {url:"$H/m/me.html"},
-            "users":   	                {url:"$H/u/users.html"},
-            "groups":   	            {url:"$H/g/groups.html"},
-            "sharepoint-site":                  {url:"$H/s/sharepoint-site.html"},
-            "sharepoint-list":   	    {url:"$H/s/sharepoint-list.html"},
-            "sharepoint-list-column":   {url:"$H/s/sharepoint-list-column.html"},
-            "sharepoint-list-item":     {url:"$H/s/sharepoint-list-item.html"},
-            
-            "participant-data":   	    {url:"$H/p/participant-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items", form_module:"participant-form"},
-            "participant-form":   	    {url:"$H/p/participant-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items"},
-
-            "employee-appointment-data":   	    {url:"$H/e/employee-appointment-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items", form_module:"employee-appointment-form"},
-            "employee-appointment-form":   	    {url:"$H/e/employee-appointment-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items"},
-            "about-vmiis":    			            {url:"$M/a/about-vmiis.html",router:1},
+            "control-panel-main":   {url:"$H/c/control-panel-main.html",router:1},
+            "me":   	            {url:"$H/m/me.html"},
+            "client-data":   	    {url:"$H/c/client-data.html",Table:"Clients", form_module:"client-form"},
+            "client-form":   	    {url:"$H/c/client-form.html",Table:"Clients"},
+            "about-vmiis":    		{url:"$M/a/about-vmiis.html",router:1},
 
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
@@ -97,17 +86,16 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             
-            
-            /*
-            var db = firebase.firestore();
-            
-            db.collection("Clients").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    console.log(doc.data());
-                });
+            firebase.auth().onAuthStateChanged(function(user) {
+                if(user){
+                    console.log(user);
+                    $vm.firebase_user_name=$vm.user_name=user.displayName;
+                    $vm.show_user();
+                } 
+                else {
+                }
             });
-            */
-
+            $vm.firebase_db=firebase.firestore();
             $vm.firebase_signin=function (){
                 var provider = new firebase.auth.GoogleAuthProvider();            
                 firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -115,6 +103,8 @@
                     var token = result.credential.accessToken;
                     // The signed-in user info.
                     var user = result.user;
+                    $vm.user_name=user.displayName;
+                    $vm.show_user();
                     // ...
                 }).catch(function(error) {
                     // Handle Errors here.
@@ -125,7 +115,12 @@
                     // The firebase.auth.AuthCredential type that was used.
                     var credential = error.credential;
                     // ...
+                    console.log(error)                    
                 });
+            }
+            $vm.firebase_signout=function (){
+                firebase.auth().signOut();
+                location.reload(true);
             }
         }
         $vm.firebase_init();

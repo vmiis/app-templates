@@ -55,6 +55,7 @@
         "linkedin":                                         {url:"$H/l/linkedin/index.html",app:1},
         "facebook":                                         {url:"$H/f/facebook/index.html",app:1},
         "microsoft-365":                                    {url:"$H/m/microsoft-graph/index.html",app:1},
+        "google-firebase":                                  {url:"$H/g/google-firebase/index.html",app:1},
         
         //"incoice-management":           {url:"$H/i/invoice-management/index.html",app:1},
     }
