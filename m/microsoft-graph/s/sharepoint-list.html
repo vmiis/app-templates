@@ -26,7 +26,7 @@
 					$('#info__ID').html(txt);
                     $('#D__ID u').on('click',function(){
 						var md=$(this).attr("m");
-						$vm.load_module(md,'',{rid:$(this).attr('rid'),group_id:g_id})
+						$vm.load_module(md,'',{rid:$(this).attr('rid'),group_id:g_id,site_id:m.input.site_id})
                     })
 				})
 			})

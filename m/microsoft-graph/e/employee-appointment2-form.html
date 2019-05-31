@@ -11,9 +11,9 @@
                         Contract Type:
                     </div>
                     <div class=col-md-9>
-                        <label><input type="radio" name=Contract_Type value='New Hire' /> New Hire</label><br>
-                        <label><input type="radio" name=Contract_Type value='Contract Renewal' /> Contract Renewal</label><br>
-                        <label><input type="radio" name=Contract_Type value='Variation to Existing Contract' /> Variation to Existing Contract</label><br>
+                        <label><input type="radio" name=Contract_x0020_Type value='New Hire' /> New Hire</label><br>
+                        <label><input type="radio" name=Contract_x0020_Type value='Contract Renewal' /> Contract Renewal</label><br>
+                        <label><input type="radio" name=Contract_x0020_Type value='Variation to Existing Contract' /> Variation to Existing Contract</label><br>
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -28,7 +28,7 @@
                         Employee Code (If he/she is a current employee):
                     </div>
                     <div class=col-md-9>
-                        <input type="text" class=form-control name=Employee_Code /> 
+                        <input type="text" class=form-control name=Employee_x0020_Code /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -37,7 +37,7 @@
                         Title/Salutation:
                     </div>
                     <div class=col-md-9>
-                        <input type="text" class=form-control name=Title /> 
+                        <input type="text" class=form-control name=Salutation /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -46,7 +46,7 @@
                         First Name:
                     </div>
                     <div class=col-md-9>
-                        <input type="text" class=form-control name=First_Name /> 
+                        <input type="text" class=form-control name=First_x0020_Name /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -72,6 +72,7 @@
                         </select> 
                     </div>
                 </div>
+                <!--
                 <hr class=hr__ID>
                 <div class="row row__ID">
                     <div class=col-md-3>
@@ -81,13 +82,14 @@
                         <textarea class=form-control name=Address ></textarea>
                     </div>
                 </div>
+            -->
                 <hr class=hr__ID>
                 <div class="row row__ID">
                     <div class=col-md-3>
                         Date Of Birth:
                     </div>
                     <div class=col-md-9>
-                        <input type="date" class=form-control name=Date_Of_Birth /> 
+                        <input type="date" class=form-control name=Date_x0020_of_x0020_Birth /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -96,7 +98,7 @@
                         Email address:
                     </div>
                     <div class=col-md-9>
-                        <input type="email" class=form-control name=Email /> 
+                        <input type="email" class=form-control name=Email_x0020_Address /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -105,7 +107,7 @@
                         Phone Number (Home):
                     </div>
                     <div class=col-md-9>
-                        <input type="text" class=form-control name=Phone_Number_Home /> 
+                        <input type="text" class=form-control name=Phone_x0020_Home /> 
                     </div>
                 </div>
                 <hr class=hr__ID>
@@ -114,9 +116,10 @@
                         Phone Number (Mobile):
                     </div>
                     <div class=col-md-9>
-                        <input type="text" class=form-control name=Phone_Number_Mobile /> 
+                        <input type="text" class=form-control name=Mobile /> 
                     </div>
                 </div>
+            <!--
                 <hr class=hr__ID>
                 <div class=row>
                     <div class='col bk__ID'>
@@ -507,7 +510,7 @@
                         </div>
                     </div>
                 </div>
-
+            -->
                 <!--
 
                 <div class="form-check form-check-inline">
@@ -546,7 +549,6 @@
         function F__ID(){
     		//-------------------------------------
             VmInclude:__COMPONENT__/f/form.365.01.js
-            m.JSON=1;
             //-------------------------------------
             $('#D__ID').on('load',function(){
                 var id=-1;
