@@ -8,8 +8,33 @@
             VmInclude:__COMPONENT__/g/grid.365.01.js
             //-------------------------------------
             var fields="Contract_Type|Contract_x0020_Type,Employee Code|Employee_x0020_Code,Salutation,First Name|First_x0020_Name,Surname";
-            fields+=",Gender,Date_of_Birth|Date_x0020_of_x0020_Birth,Email Address|Email_x0020_Address";
+            fields+=",Address,Gender,Date_of_Birth|Date_x0020_of_x0020_Birth,Email Address|Email_x0020_Address";
             fields+=",Phone Home|Phone_x0020_Home,Mobile";
+            fields+=",Primary Department|Primary_x0020_Department";
+
+            fields+=",Funding Grantor/Institute|Funding_x0020_Grantor_x002f_Inst";
+
+            fields+=",Project Code/Institute|Project_x0020_Code";
+            fields+=",Employee Position Title|Employee_x0020_Position_x0020_Ti";
+            fields+=",Reporting To|Reporting_x0020_To";
+            fields+=",Manager Name|Manager_x0020_Name_x0020_";
+            fields+=",Contract Start Date|Contract_x0020_Start_x0020_Date";
+            fields+=",Contract End Date|Contract_x0020_End_x0020_Date";
+            fields+=",Employment Status|Employment_x0020_Status";
+            
+            fields+=",Usual Days|Usual_x0020_Days";
+            fields+=",Award Type|Award_x0020_Type";
+            fields+=",Award Classification|Award_x0020_Classification";
+            
+            fields+=",Salary";
+            fields+=",Child Check|Child_x0020_Check";
+            fields+=",Children Check Numbe|Children_x0020_Check_x0020_Numbe";
+            fields+=",Police Check|Police_x0020_Check";
+            fields+=",Police Ref Number|Police_x0020_Ref_x0020_Number";
+            
+            fields+=",Uniform Required|Uniform_x0020_Required";
+            fields+=",Swipe Card|Swipe_x0020_Card,Desk,Computer,Lab Access|Lab_x0020_Access,Patient Contact|Patient_x0020_Contact,Unikey";
+            
             m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete";
             //-------------------------------------
             m.data_process=function(res){
@@ -28,6 +53,41 @@
                         "Submitted_by":res.value[i].createdBy.user.displayName,
                         Data:Data
                     })
+                    
+                    //var d=m.records[i].Data['Date_x0020_of_x0020_Birth'];
+                    //if(d!="") m.records[i].Data['Date_x0020_of_x0020_Birth']=$vm.date_to_string_yyyymmdd(new Date( m.records[i].Data['Date_x0020_of_x0020_Birth']));
+                    m.date_field(m.records[i].Data,'Date_x0020_of_x0020_Birth');
+                    m.date_field(m.records[i].Data,'Contract_x0020_Start_x0020_Date');
+                    m.date_field(m.records[i].Data,'Contract_x0020_End_x0020_Date');
+                    
+                    m.string_array_field(m.records[i].Data,'Primary_x0020_Department');
+                    m.string_array_field(m.records[i].Data,'Usual_x0020_Days');
+                    m.string_array_field(m.records[i].Data,'Award_x0020_Type');
+                    
+                    /*
+                    d=m.records[i].Data['Primary_x0020_Department'];
+                    for(k in d){
+                        var a=d[k];
+                        m.records[i].Data[a.replace(/ /g,'_')]='on';
+                    }
+                    */
+                    console.log(m.records[i].Data)
+                }
+            }
+            //-------------------------------------
+            m.date_field=function(data,name){
+                var d=data[name];
+                if(d!="" || d==null || d==undefined) data[name]=$vm.date_to_string_yyyymmdd(new Date( data[name]));
+                else data[name]="";
+            }
+            //-------------------------------------
+            m.string_array_field=function(data,name){
+                var d=data[name];
+                if(d!=undefined){
+                    for(k in d){
+                        var a=d[k];
+                        data[a.replace(/ /g,'_').replace(/\//g,'__')]='on';
+                    }
                 }
             }
             //-------------------------------------
