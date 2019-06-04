@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.17/js/adal.min.js"></script>  
+    </body>
+    <script>
+        //------------------------------------
+        var callbackFunction=function(errorDesc, token, error, tokenType){
+            alert(123)
+        }
+        var msalConfig={
+            clientId: '3bcb40c5-fec0-4b3b-ba67-f4d46d577f97',
+            popUp: true,
+            callback: callbackFunction
+        };
+        var authContext=new AuthenticationContext(msalConfig);
+
+        var user = authContext.getCachedUser();
+        if (user==null) {
+            authContext.login();
+            //authContext.loginRedirect();
+        }
+        else{
+            alert(user.userName)
+        }
+        /*
+        var account=m365_msal.getAccount();
+        if(account==null){
+            m365_msal.handleRedirectCallback((error, response) => {
+            });
+            m365_msal.loginRedirect(m365_scope).then(function (loginResponse){
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        else{
+        }
+        */
+    </script>
+</html>

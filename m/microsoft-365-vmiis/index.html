@@ -15,7 +15,7 @@
         <div id=footer></div>
         <div id=system></div>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js"></script>
+        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.17/js/adal.min.js"></script>  
     </body>
     <script boot-up>
         //------------------------------------
@@ -23,10 +23,7 @@
         $vm.debug=1;
         //------------------------------------
         //setup modules location
-        $vm.hosting_path0=window.location.href.split('#')[0];
-        $vm.hosting_path=$vm.hosting_path0.substring(0, $vm.hosting_path0.split('?')[0].lastIndexOf('/'));
-        
-        //$vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
+        $vm.hosting_path=window.location.href.substring(0, window.location.href.split('?')[0].lastIndexOf('/'));
         if(window.location.href.substring(0,5)=="file:") $vm.hosting_path="https://app-templates.vmiis.com/e/enquiry";
         if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
         $vm.m_path='https://modules.vmiis.com'; if($vm.localhost==true) $vm.m_path='http://'+window.location.hostname+':8000/vmiis/modules'; 
@@ -45,29 +42,9 @@
             "app":	        {url:"$H/0/app.html"},
             "header":	    {url:"$H/0/header.html"},
             "footer":	    {url:"$H/0/footer.html"},
-            "control-panel-main":            {url:"$H/c/control-panel-main.html",router:1},
-            "control-panel-site":            {url:"$H/c/control-panel-site.html",router:1},
-            "me":   	                {url:"$H/m/me.html"},
-            "users":   	                {url:"$H/u/users.html"},
-            "groups":   	            {url:"$H/g/groups.html"},
-            "sharepoint-site":                  {url:"$H/s/sharepoint-site.html"},
-            "sharepoint-list":   	    {url:"$H/s/sharepoint-list.html"},
-            "sharepoint-list-column":   {url:"$H/s/sharepoint-list-column.html"},
-            "sharepoint-list-item":     {url:"$H/s/sharepoint-list-item.html"},
-            
-            "participant-data":   	    {url:"$H/p/participant-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items", form_module:"participant-form"},
-            "participant-form":   	    {url:"$H/p/participant-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Participants/items"},
-
-            "employee-appointment-data":   	    {url:"$H/e/employee-appointment-data.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items", form_module:"employee-appointment-form"},
-            "employee-appointment-form":   	    {url:"$H/e/employee-appointment-form.html",Table:"https://graph.microsoft.com/v1.0/sites/root/lists/Employee%20appointments/items"},
-            
-            "employee-appointment2-data":       {url:"$H/e/employee-appointment2-data.html",Table:"https://graph.microsoft.com/v1.0/sites/woolcockmed.sharepoint.com,904f3621-bfdc-4154-a36e-e73f3d46c7c0,2367a8ed-18d1-4fea-afe2-c5784ffccfa9/lists/0e9e1d2f-2898-44c1-b3a7-645882b05459/items", form_module:"employee-appointment2-form"},
-            "employee-appointment2-form":       {url:"$H/e/employee-appointment2-form.html",Table:"https://graph.microsoft.com/v1.0/sites/woolcockmed.sharepoint.com,904f3621-bfdc-4154-a36e-e73f3d46c7c0,2367a8ed-18d1-4fea-afe2-c5784ffccfa9/lists/0e9e1d2f-2898-44c1-b3a7-645882b05459/items"},
-
-
-            //?expand=fields
-
-            //"sharepoint-site-content-list":     {url:"$H/s/sharepoint-site-content-list.html"},
+            "panel":        {url:"$H/c/control-panel.html"},
+            "vm365-contact-list-data":   	{url:"$H/v/vm365-contact-list-data.html",Table:"contact_list",form_module:"vm365-contact-list-form"},
+            "vm365-contact-list-form":   	{url:"$H/v/vm365-contact-list-form.html",Table:"contact_list"},
             
             /*
             "vm365-panel":                  {url:"$M/v/vm365-home.html"},
@@ -75,10 +52,11 @@
             "vm365-entity-form":   	        {url:"$M/v/vm365-entity-form.html",Table:"EntityDefinitions"},
             "vm365-table1-data":   	        {url:"$M/v/vm365-table1-data.html",Table:"new_table1s",form_module:"vm365-table1-form"},
             "vm365-table1-form":   	        {url:"$M/v/vm365-table1-form.html",Table:"new_table1s"},
-            "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
             */
-            "about-vmiis":    			            {url:"$M/a/about-vmiis.html",router:1},
+            "vm365-sharepoint-list-data":   {url:"$M/v/vm365-sharepoint-list-data.html",Table:"",form_module:"vm365-table1-form"},
 
+            "employee-appointment-data":   	{url:"$H/e/employee-appointment-data.html",Table:"contact_list",form_module:"employee-appointment-form"},
+            "employee-appointment-form":   	{url:"$H/e/employee-appointment-form.html",Table:"contact_list"},
         };
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$H',$vm.hosting_path);
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.module_list[p].url.replace('$M',$vm.m_path);
@@ -97,67 +75,188 @@
             $vm.load_component('app',$vm.root_layout_system,{});
         }
         //------------------------------------
+
+
+
+        //$vm.m365={};
+        //$vm.m365.organizationURI = "https://vmiis.crm6.dynamics.com";
+        //$vm.m365.sharepointURI   = "https://vmiis.sharepoint.com";
+        //$vm.m365.tenant          = "vmiis.onmicrosoft.com";
+        //$vm.m365.clientId        = "82698c57-0152-44cb-ab2f-5c4a33064201";
+        //$vm.m365.pageUrl         = "http://127.0.0.1:8000/vmiis/online-profile/modules/v/vmiis-365-app/index.html";
+        //------------------------------------
+        /*
+        $vm.m365.endpoints = {  
+            orgUri: $vm.m365.organizationURI,
+            sharePointUri: $vm.m365.sharepointURI,  
+        };
+        */
+
+        /*
+        
         $vm.m365_init=function(){
-            $vm.m365_scope={
-                scopes: ["user.read","User.ReadBasic.All","Files.Read.All","Sites.ReadWrite.All"/*",group.read.all"*/]
-            };
             $vm.msalConfig={
-                auth: {
-                    clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a',
-                },
-                cache: {
-                    cacheLocation: "localStorage",
-                    storeAuthStateInCookie: true
-                }
+                clientId: '3bcb40c5-fec0-4b3b-ba67-f4d46d577f97',
+                popUp: true,
+                callback : $vm.m365_callbackFunction
             };
-            $vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
+            $vm.m365_callbackFunction=function(errorDesc, token, error, tokenType){
+                alert(123)
+            }
+            $vm.m365_authContext=new AuthenticationContext($vm.msalConfig);
             $vm.m365_signin=function (){
-                $vm.m365_msal.handleRedirectCallback((error, response) => {
-                });
-                $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
-                    if($vm.m365_msal.getAccount()!=undefined){
-                        $vm.m365_user_name=$vm.user_name=$vm.m365_msal.getAccount().userName;   
-                        $vm.show_user();     
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                });
+                $vm.m365_authContext.login();
             }
             $vm.m365_signout=function() {
-                $vm.m365_msal.logout();
+                $vm.m365_authContext.logOut();  
+                $vm.user_name="";
+                $vm.show_user();
             }
-            $vm.m365_graph=function(url,callback){
-                $vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
-                    var xmlHttp = new XMLHttpRequest();
-                    var mt1=new Date().getTime();
-                    xmlHttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200){
-                            $("#_sys_dev_info_elapsed").html( (this.response.length/1000).toFixed(1)+"kb/"+(new Date().getTime()-mt1).toString()+"ms");
-                            var data=JSON.parse(this.responseText);
-                            callback(data);
-                        }
-                        else if(this.readyState == 4 && this.status == 403){
-                            $vm.alert("No permission");
-                            callback({});
-                        }
-                        if(this.status == 404){
-                            $vm.alert(url+", 404 (Not found)");
-                            callback({});
-                        }
-                    }
-                    xmlHttp.open("GET", url, true); // true for asynchronous
-                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + tokenResponse.accessToken);
-                    xmlHttp.send();
-                }).catch(function (error){console.log(error);});
-            };
-            //------------------------------------
-            if($vm.m365_msal.getAccount()!=undefined){
-                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;   
+            var user = $vm.m365_authContext.getCachedUser();
+            if (user) {
+                console.log(user)
+                $vm.m365_user_name=user.userName;             
             }
         }
         $vm.m365_init();
-        //-------------------------------------
+        */
 
+
+
+
+
+
+
+                
+                //console.log($vm.m365_authContext.loginRedirect);
+                /*
+                var signinWin=window.open("signin.html","SignIn", "width=972,height=660");
+                var e=0;
+                var loop_2=setInterval(function (){
+                    if (signinWin.closed) {
+                        clearInterval(loop_2);
+                    } 
+                    try{
+                        var l=signinWin.location.length;   console.log(l)
+                        var a=signinWin.location.href;     console.log(a)
+                        if(a.split('#').length>1){
+                            e=2;
+                        }
+                    }
+                    catch(e){
+                    }
+                    if(e==2){
+                        if(signinWin.location.href!=undefined){
+                            //signinWin.close();
+                            clearInterval(loop_2);
+                            var user = $vm.m365_authContext.getCachedUser();
+                            alert(user)            
+                            if(user){
+                                $vm.user_name=user.userName;
+                                $vm.show_user();
+                            }
+                        }
+                    }
+                },1000);
+                */
+                
+
+
+
+        /*
+        window.config = {
+            clientId: '3bcb40c5-fec0-4b3b-ba67-f4d46d577f97',
+            popUp: true,
+            callback : callbackFunction
+        };
+
+        var authContext = new AuthenticationContext(config);
+
+        function callbackFunction(errorDesc, token, error, tokenType)
+        {
+            alert(123)
+        }
+
+        var user = authContext.getCachedUser();
+        if (user) {
+            // Use the logged in user information to call your own api
+            //onLogin(null, user);
+            alert(user)
+        }
+        else {
+            // Initiate login
+            //authContext.login(); //not working, block popup
+        }        
+
+                $vm.m365_signin=function (){
+                    authContext.login();  
+                }
+                $vm.m365_signout=function() {
+                    authContext.logOut();  
+                    $vm.user_name="";
+                    $vm.show_user();
+                }
+
+                */
+        
+        $vm.m365_init=function(){
+            //------------------------------------
+            var user, message, errorMessage, loginButton, logoutButton, getAccountsButton, accountsTable, accountsTableBody;  
+            //------------------------------------
+            $vm.m365={};
+            //------------------------------------
+            $vm.m365.config = {  
+                //tenant: "woolcockmed.onmicrosoft.com",  
+                clientId: "1344ff8b-e989-4c97-ae0f-9948a51e8af2",  
+                endpoints: {
+                    //orgUri: "https://woolcockmed.crm6.dynamics.com",
+                    //sharePointUri: "https://woolcockmed.sharepoint.com",  
+                },  
+                cacheLocation: 'localStorage', 
+            };
+            //------------------------------------
+            $vm.m365.authenticate=function() {  
+                $vm.m365.authContext=new AuthenticationContext($vm.m365.config);  
+
+                var isCallback = $vm.m365.authContext.isCallback(window.location.hash);  
+                if (isCallback) {  
+                    $vm.m365.authContext.handleWindowCallback();  
+                }
+                /*  
+                var loginError = $vm.m365.authContext.getLoginError();  
+
+                if (isCallback && !loginError) {  
+                    window.location = $vm.m365.authContext._getItem($vm.m365.authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);  
+                }  
+                else {  
+                    //errorMessage.textContent = loginError;  
+                    //alert(loginError)
+                } 
+                */ 
+                $vm.m365.user=$vm.m365.authContext.getCachedUser();  
+                if($vm.m365.user!=null){
+                    $vm.m365_user_name=$vm.user_name=$vm.m365.user.profile.given_name+' '+$vm.m365.user.profile.family_name;
+                    if($vm.show_user!=undefined) $vm.show_user();
+                }
+                $vm.m365_signin=function (){
+                    $vm.m365.authContext.login();  
+                }
+                $vm.m365_signout=function() {
+                    $vm.m365.authContext.logOut();  
+                    $vm.user_name="";
+                    $vm.show_user();
+                }
+            }  
+            //------------------------------------
+            $vm.m365.authenticate();
+            //------------------------------------
+        }
+        $vm.m365_init();
+        //-------------------------------------
+        //alert(2222222222222)
+        
+
+        
         //------------------------------------
         //Do not need to chang the following code in most cases
         //The following code will load a framework module and on demand module list

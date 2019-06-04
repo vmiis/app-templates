@@ -87,45 +87,6 @@
                 m.endpoint_d=m.Table;
             }
             //-------------------------------------
-            /*
-            $vm.m365_scope2={
-                scopes: ["https://woolcockmed.sharepoint.com/.default"]
-            };
-
-            m.request_data=function(){
-                $vm.m365_msal.acquireTokenSilent($vm.m365_scope2).then(function (tokenResponse) {
-                    //m.endpointB="https://woolcockmed.sharepoint.com/_api/web/lists?$top=30"
-                    m.endpointB="https://woolcockmed.sharepoint.com/sites/HRandEmployment/_api/web/lists/GetByTitle('Employee Appointment')/items(9)/AttachmentFiles"
-                    //m.endpointB="https://woolcockmed.sharepoint.com/sites/HRandEmployment/_api/web/lists/GetByTitle('Attachments')/items"
-
-
-                    //alert(token)
-                    
-                    var mt1=new Date().getTime();
-                    var xmlHttp = new XMLHttpRequest();
-                    xmlHttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200){
-                            //callback(JSON.parse(this.responseText));
-                            var data=JSON.parse(this.responseText);  
-                            var mt2=new Date().getTime();
-                            var tt_all=mt2-mt1;
-                            $("#elapsed__ID").html( (this.response.length/1000).toFixed(1)+"kb/"+tt_all.toString()+"ms");
-                            if(m.data_process!=undefined) m.data_process(data.value);
-                            m.render();
-                        }
-                    }
-                    xmlHttp.open("GET", m.endpointB, true); // true for asynchronous
-                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + tokenResponse.accessToken);
-                    xmlHttp.setRequestHeader("Accept", "application/json");  
-                    xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");  
-                    xmlHttp.setRequestHeader("OData-MaxVersion", "4.0");  
-                    xmlHttp.setRequestHeader("OData-Version", "4.0");  
-                    xmlHttp.send();
-                })
-            }
-            */
-            //-------------------------------------
-            
         }
     </script>
     <style>

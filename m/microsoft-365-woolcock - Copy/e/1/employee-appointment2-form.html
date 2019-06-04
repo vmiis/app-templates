@@ -593,21 +593,6 @@
                         <input type="text" class=form-control name=Sign_x002d_off_x0020_status /> 
                     </div>
                 </div>
-                
-                <hr class=hr__ID>
-                <div class="row row__ID">
-                    <div class=col-md-3>
-                        Attachments
-                    </div>
-                    <div class=col-md-9>
-                        <div id=attachments__ID>
-
-                        </div> 
-                        <input type=file multiple />
-                    </div>
-                </div>
-                
-                
                 <!--
 
                 <div class="form-check form-check-inline">
@@ -652,7 +637,6 @@
                 if(m.input.record!=undefined) id=m.input.record["_id"];
                 m.endpoint_a=m.Table;
                 m.endpoint_u=m.Table+"/"+id+"/fields";
-                //m.attachment(id); 
             })
             //-------------------------------------
             m.before_submit=function(data,index){
@@ -661,6 +645,10 @@
                 m.date_field(data,"Contract_x0020_End_x0020_Date");
                 m.date_field(data,"Laundry_x0020_Allowance_x0020_Da");
                 
+                //var dob=data["Date_x0020_of_x0020_Birth"];
+                //if(dob=="") delete data['Date_x0020_of_x0020_Birth'];
+                
+                //var names="Sleep_Technicians,Neurobiology,Sleep_and_Circadian,Sleep_Group,Cardio_metabolic,Epidemiology_Clinical_Trials,Operations,Commercial,Woolcock_Therapy_Centre,Woolcock_Reception,Clinical_Management,Respiratory_Technology,Airway_Physiology_and_Imaging,Emphysema_Group";
                 m.string_array_field(data,"Primary_x0020_Department","Sleep_Technicians,Neurobiology,Sleep_and_Circadian,Sleep_Group,Cardio-metabolic,Epidemiology__Clinical_Trials,Operations,Commercial,Woolcock_Therapy_Centre,Woolcock_Reception,Clinical_Management,Respiratory_Technology,Airway_Physiology_and_Imaging,Emphysema_Group");
                 m.string_array_field(data,"Usual_x0020_Days","Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday");
                 m.string_array_field(data,"Award_x0020_Type","Award_Free,Health_Professionals_and_Support_Services_Award_2010,Professional_Employees_Award_2010,Clerks_Private_Sector_Award_2010,Hospitality_Industry_General_Award_2010,Manufacturing_and_Associated_Industries_and_Occupations_Award_2010");
@@ -672,44 +660,22 @@
                 m.boolean_field(data,'Patient_x0020_Contact');
                 m.boolean_field(data,'Assigned_x0020_Unikey');
                 
-                return true;
-            }
-            //-------------------------------------
-            m.attachment=function(id){
-                //alert(id);
-                
-                $vm.m365_scope2={
-                    scopes: ["https://woolcockmed.sharepoint.com/.default"]
-                };
-                $vm.m365_msal.acquireTokenSilent($vm.m365_scope2).then(function (tokenResponse) {
-                    var endpoint="https://woolcockmed.sharepoint.com/sites/HRandEmployment/_api/web/lists/GetByTitle('Employee Appointment')/items(9)/AttachmentFiles"
-                    var xmlHttp = new XMLHttpRequest();
-                    xmlHttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200){
-                            var data=JSON.parse(this.responseText);  
-                            m.attachment_render(data)
-                        }
-                    }
-                    xmlHttp.open("GET", endpoint, true); // true for asynchronous
-                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + tokenResponse.accessToken);
-                    xmlHttp.setRequestHeader("Accept", "application/json");  
-                    xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");  
-                    xmlHttp.setRequestHeader("OData-MaxVersion", "4.0");  
-                    xmlHttp.setRequestHeader("OData-Version", "4.0");  
-                    xmlHttp.send();
-                })
-            }
-            //-------------------------------------
-            m.attachment_render=function(data){
-                console.log(data);
-                var txt="";
-                for(var i in data.value){
-                    var a=data.value[i];
-                    var name=a.FileName;
-                    var url="https://woolcockmed.sharepoint.com/"+a.ServerRelativePath.DecodedUrl+"?web=1";
-                    txt+="<a target=_blank href='"+url+"'>"+name+"</a><br>"
+                /*
+                var ckA="Sleep_Technicians,Neurobiology,Sleep_and_Circadian,Sleep_Group,Cardio_metabolic,Epidemiology_Clinical_Trials,Operations,Commercial,Woolcock_Therapy_Centre,Woolcock_Reception,Clinical_Management,Respiratory_Technology,Airway_Physiology_and_Imaging,Emphysema_Group";
+                var ckAs=ckA.split(',');
+                var Primary_x0020_Department=[];
+                for(i in ckAs){
+                    var a=ckAs[i];
+                    if(data[a]=='on') Primary_x0020_Department.push(a.replace(/_/g,' '));
+                    delete data[a];
                 }
-                $('#attachments__ID').html(txt);
+                data['Primary_x0020_Department']=Primary_x0020_Department;
+                data["Primary_x0020_Department@odata.type"]="Collection(Edm.String)",
+                */
+                //data['Primary_x0020_Department']=["Sleep Technicians"];
+                //delete data['Primary_x0020_Department'];
+                console.log(data)
+                return true;
             }
             //-------------------------------------
         }

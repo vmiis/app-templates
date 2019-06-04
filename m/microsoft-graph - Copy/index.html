@@ -99,11 +99,13 @@
         //------------------------------------
         $vm.m365_init=function(){
             $vm.m365_scope={
-                scopes: ["user.read","User.ReadBasic.All","Files.Read.All","Sites.ReadWrite.All"/*",group.read.all"*/]
+                scopes: ["user.read","User.ReadBasic.All",/*"group.read.all",*/"Files.Read.All","Sites.ReadWrite.All"]
             };
             $vm.msalConfig={
                 auth: {
                     clientId: 'f39f8959-8cd7-4570-8c0f-548306bf899a',
+                    //clientId: '1344ff8b-e989-4c97-ae0f-9948a51e8af2', //This is your client ID
+                    //authority: "https://login.microsoftonline.com/vmiis.onmicrosoft.com" //This is your tenant info
                 },
                 cache: {
                     cacheLocation: "localStorage",
@@ -112,16 +114,32 @@
             };
             $vm.m365_msal=new Msal.UserAgentApplication($vm.msalConfig);
             $vm.m365_signin=function (){
-                $vm.m365_msal.handleRedirectCallback((error, response) => {
-                });
-                $vm.m365_msal.loginPopup($vm.m365_scope).then(function (loginResponse){
-                    if($vm.m365_msal.getAccount()!=undefined){
-                        $vm.m365_user_name=$vm.user_name=$vm.m365_msal.getAccount().userName;   
-                        $vm.show_user();     
+                var signinWin=window.open("signin.html","SignIn", "width=972,height=660");
+                var e=0;
+                var loop_2=setInterval(function (){
+                    if (signinWin.closed) {
+                        clearInterval(loop_2);
+                    } 
+                    try{
+                        var l=signinWin.location.length;   console.log(l)
+                        var a=signinWin.location.href;     console.log(a)
+                        if(a.split('#').length>1){
+                            e=2;
+                        }
                     }
-                }).catch(function (error) {
-                    console.log(error);
-                });
+                    catch(e){
+                    }
+                    if(e==2){
+                        if(signinWin.location.href!=undefined){
+                            signinWin.close();
+                            clearInterval(loop_2);
+                            if($vm.m365_msal.getAccount()!=null){
+                                $vm.user_name=$vm.m365_msal.getAccount().userName;
+                                $vm.show_user();
+                            }
+                        }
+                    }
+                },1000);
             }
             $vm.m365_signout=function() {
                 $vm.m365_msal.logout();
@@ -151,8 +169,16 @@
                 }).catch(function (error){console.log(error);});
             };
             //------------------------------------
+            $vm.show_json_data=function(D){
+                var txt=JSON.stringify(D, null, '\t');
+                txt=txt.replace(/\n/g,"<br>");
+                txt=txt.replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+                var win=window.open("","JSON data");
+                win.document.body.innerHTML=txt+"<title>JSON data</title><style> body{ font-family:Courier New;font-size:12px; white-space: nowrap; } </style>";
+            }
+            //------------------------------------
             if($vm.m365_msal.getAccount()!=undefined){
-                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;   
+                $vm.m365_user_name=$vm.m365_msal.getAccount().userName;             
             }
         }
         $vm.m365_init();

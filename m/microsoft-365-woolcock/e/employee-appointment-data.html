@@ -142,9 +142,13 @@
                 $vm.m365.authContext.acquireToken(m.endpoint, retrieveData);  
                 */
             //$vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
-                alert(m.endpointA)
+                m.endpointA="https://woolcockmed.sharepoint.com/";
+                m.endpointB="https://woolcockmed.sharepoint.com/_api/web/lists?$top=30"
+
+
                 $vm.m365.authContext.acquireToken(m.endpointA, function(error, token){
-                    alert(111) 
+                    alert(token)
+                    /* 
                     var mt1=new Date().getTime();
                     var xmlHttp = new XMLHttpRequest();
                     xmlHttp.onreadystatechange = function () {
@@ -165,6 +169,7 @@
                     xmlHttp.setRequestHeader("OData-MaxVersion", "4.0");  
                     xmlHttp.setRequestHeader("OData-Version", "4.0");  
                     xmlHttp.send();
+                    */
                 })
             }
             //-------------------------------------
