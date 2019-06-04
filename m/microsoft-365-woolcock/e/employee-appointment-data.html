@@ -5,7 +5,7 @@
     <script>
         function F__ID(){
             //-------------------------------------
-            VmInclude:__COMPONENT__/g/grid.365.01.js
+            VmInclude:__COMPONENT__/g/grid.365adal.01.js
             //-------------------------------------
             var fields="Contract_Type|Contract_x0020_Type,Employee Code|Employee_x0020_Code,Salutation,First Name|First_x0020_Name,Surname";
             fields+=",Address,Gender,Date_of_Birth|Date_x0020_of_x0020_Birth,Email Address|Email_x0020_Address";
@@ -87,6 +87,91 @@
                 m.endpoint_d=m.Table;
             }
             //-------------------------------------
+
+
+            m.endpointA="https://woolcockmed.sharepoint.com/site/_api/lists/getbytitle('listname')"
+            
+            
+            m.select="";
+            m.set_req=function(){
+                m.req="/api/data/v9.1/"+m.Table+"?$top=30&$expand=createdby($select=firstname,lastname)"; 
+                var k=$('#keyword__ID').val();
+                if(k!=""){
+                    var n=k.split(':')[0];
+                    var v=k.split(':').pop();
+                    if(k!="") m.req+="&$filter=contains("+n+",'"+v+"')";
+                }
+                if(m.select!="") m.req+="&"+m.select;
+            };
+            //-------------------------------------
+            
+            
+            m.request_data=function(){
+                /*
+                function retrieveData(error, token){
+                    var req = new XMLHttpRequest()  
+                    req.open("GET", encodeURI(m.endpoint + m.req), true);  
+                    //Set Bearer token  
+                    req.setRequestHeader("Authorization", "Bearer " + token);  
+                    req.setRequestHeader("Accept", "application/json");  
+                    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");  
+                    req.setRequestHeader("OData-MaxVersion", "4.0");  
+                    req.setRequestHeader("OData-Version", "4.0");  
+                    req.onreadystatechange = function () {  
+                        if (this.readyState == 4 ) {  
+                            req.onreadystatechange = null;  
+                            if (this.status == 200) {  
+                                var data = JSON.parse(this.response).value;  
+                                
+                                var mt2=new Date().getTime();
+                                var tt_all=mt2-mt1;
+                                $("#elapsed__ID").html( (this.response.length/1000).toFixed(1)+"kb/"+tt_all.toString()+"ms");
+                                
+                                if(m.data_process!=undefined) m.data_process(data);
+                                m.render();
+                            }  
+                            else {  
+                                var error = JSON.parse(this.response).error;  
+                                console.log(error.message);  
+                            }  
+                        }  
+                    };  
+                    var mt1=new Date().getTime();
+                    req.send(); 
+                }
+                $vm.m365.authContext.acquireToken(m.endpoint, retrieveData);  
+                */
+            //$vm.m365_msal.acquireTokenSilent($vm.m365_scope).then(function (tokenResponse) {
+                alert(m.endpointA)
+                $vm.m365.authContext.acquireToken(m.endpointA, function(error, token){
+                    alert(111) 
+                    var mt1=new Date().getTime();
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200){
+                            //callback(JSON.parse(this.responseText));
+                            var data=JSON.parse(this.responseText);  
+                            var mt2=new Date().getTime();
+                            var tt_all=mt2-mt1;
+                            $("#elapsed__ID").html( (this.response.length/1000).toFixed(1)+"kb/"+tt_all.toString()+"ms");
+                            if(m.data_process!=undefined) m.data_process(data.value);
+                            m.render();
+                        }
+                    }
+                    xmlHttp.open("GET", m.endpoint, true); // true for asynchronous
+                    xmlHttp.setRequestHeader('Authorization', 'Bearer ' + token);
+                    xmlHttp.setRequestHeader("Accept", "application/json");  
+                    xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");  
+                    xmlHttp.setRequestHeader("OData-MaxVersion", "4.0");  
+                    xmlHttp.setRequestHeader("OData-Version", "4.0");  
+                    xmlHttp.send();
+                })
+            }
+            //-------------------------------------
+
+
+
+
         }
     </script>
     <style>
